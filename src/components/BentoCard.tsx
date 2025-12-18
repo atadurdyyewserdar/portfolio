@@ -306,10 +306,13 @@ const MapWithCustomZoom: React.FC = () => {
 };
 
 const BentoCard: React.FC = () => {
-  const [contributions, setContributions] = React.useState<{ week: number; day: number; level: number }[]>([]);
+  const [contributions, setContributions] = React.useState<
+    { week: number; day: number; level: number }[]
+  >([]);
 
   React.useEffect(() => {
-    const contributionsArray: { week: number; day: number; level: number }[] = [];
+    const contributionsArray: { week: number; day: number; level: number }[] =
+      [];
     for (let week = 0; week < 12; week++) {
       for (let day = 0; day < 7; day++) {
         const level = Math.random() > 0.3 ? Math.floor(Math.random() * 4) : 0;
@@ -345,9 +348,12 @@ const BentoCard: React.FC = () => {
                 Software Engineer
               </p>
               <p className="text-gray-600 mt-4 max-w-md text-sm lg:text-base">
-                I build web applications with a focus on performance,
-                accessibility, and delightful UI. Currently working on
-                design-forward developer tools and portfolio projects.
+                Hey there! I'm an experienced Software Engineer with over 3
+                years of professional experience in Java, Spring Boot, and REST
+                APIs. I love designing scalable backend and
+                skilled in deploying applications on AWS EC2 and integrating
+                cloud services. Working in Agile/Scrum environments and leading
+                development teams is my jam.
               </p>
             </div>
           </div>
@@ -468,7 +474,13 @@ const BentoCard: React.FC = () => {
                   <div
                     className={`${cardClass} p-4 w-full cursor-pointer`}
                     style={boxShadowStyle}
-                    onClick={() => window.open("https://www.linkedin.com/in/atadurdyyevserdar", "_blank", "noopener,noreferrer")}
+                    onClick={() =>
+                      window.open(
+                        "https://www.linkedin.com/in/atadurdyyevserdar",
+                        "_blank",
+                        "noopener,noreferrer"
+                      )
+                    }
                   >
                     <div className="flex flex-col gap-3">
                       <div className="w-12 h-12 bg-[#016699] rounded-lg flex items-center justify-center">
@@ -480,25 +492,26 @@ const BentoCard: React.FC = () => {
                           <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
                         </svg>
                       </div>
-                      <div>
-                        <p className="font-bold text-gray-900 text-sm">
-                          LinkedIn
-                        </p>
-                      </div>
                       <div className="">
-                        <p className="font-bold text-gray-900 text-sm">
+                        <p className="text-sm text-gray-900">
                           Let's connect on
                         </p>
-                        <p className="text-xs text-gray-500 mt-1">
-                          linkedin.com/in/atadurdyyevserdar
-                        </p>
+                        <p className="text-sm text-gray-900">LinkeIn</p>
                       </div>
-                      <button
-                        onClick={(e) => { e.stopPropagation(); window.open("https://www.linkedin.com/in/atadurdyyevserdar", "_blank", "noopener,noreferrer"); }}
+                      <div>
+                        <a
+                          href="https://www.linkedin.com/in/atadurdyyevserdar"
+                          className="text-xs text-gray-500 mt-1"
+                        >
+                          linkedin.com
+                        </a>
+                      </div>
+                      {/* <button
+                        onClick={(e) => { e.stopPropagation(); window.open("", "_blank", "noopener,noreferrer"); }}
                         className="cursor-pointer w-20 mt-2 px-4 py-2 rounded-md bg-[#016699] text-white text-xs font-semibold"
                       >
                         View
-                      </button>
+                      </button> */}
                     </div>
                   </div>
                 </div>
@@ -508,7 +521,16 @@ const BentoCard: React.FC = () => {
                     className={`${cardClass} p-4 w-full`}
                     style={boxShadowStyle}
                   >
-                    <div className="flex flex-col gap-3">
+                    <div
+                      className="cursor-pointer flex flex-col gap-3"
+                      onClick={() =>
+                        window.open(
+                          "https://www.instagram.com/atadurdyevserdar/",
+                          "_blank",
+                          "noopener,noreferrer"
+                        )
+                      }
+                    >
                       <div className="w-12 h-12 bg-linear-to-br from-purple-600 via-pink-500 to-orange-500 rounded-lg flex items-center justify-center">
                         <svg
                           className="w-6 h-6 text-white"
@@ -520,12 +542,20 @@ const BentoCard: React.FC = () => {
                       </div>
                       <div>
                         <div>
-                          <p className="font-bold text-gray-900 text-sm">
-                            Instagram
-                          </p>
+                          <p className="text-sm text-gray-900">Follow me on</p>
+                          <p className="text-sm text-gray-900">Instagram</p>
                         </div>
                       </div>
-                      <button
+                      <div>
+                        <a
+                          href="https://www.instagram.com/atadurdyevserdar/"
+                          className="text-xs text-gray-500 mt-1"
+                        >
+                          instagram.com
+                        </a>
+                      </div>
+
+                      {/* <button
                         onClick={() =>
                           window.open(
                             "https://www.instagram.com/atadurdyevserdar/",
@@ -536,7 +566,7 @@ const BentoCard: React.FC = () => {
                         className="cursor-pointer w-20 mt-2 px-4 py-2 rounded-md bg-blue-500 text-white text-xs font-semibold"
                       >
                         Follow
-                      </button>
+                      </button> */}
                     </div>
                   </div>
                 </div>
@@ -604,8 +634,6 @@ const BentoCard: React.FC = () => {
 };
 
 export default BentoCard;
-
-
 
 // Discord Bento Card (for reference)
 
