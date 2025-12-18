@@ -466,8 +466,9 @@ const BentoCard: React.FC = () => {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
                 <div className="cursor-pointer">
                   <div
-                    className={`${cardClass} p-4 w-full`}
+                    className={`${cardClass} p-4 w-full cursor-pointer`}
                     style={boxShadowStyle}
+                    onClick={() => window.open("https://www.linkedin.com/in/atadurdyyevserdar", "_blank", "noopener,noreferrer")}
                   >
                     <div className="flex flex-col gap-3">
                       <div className="w-12 h-12 bg-[#016699] rounded-lg flex items-center justify-center">
@@ -489,9 +490,15 @@ const BentoCard: React.FC = () => {
                           Let's connect on
                         </p>
                         <p className="text-xs text-gray-500 mt-1">
-                          linkedin.com
+                          linkedin.com/in/atadurdyyevserdar
                         </p>
                       </div>
+                      <button
+                        onClick={(e) => { e.stopPropagation(); window.open("https://www.linkedin.com/in/atadurdyyevserdar", "_blank", "noopener,noreferrer"); }}
+                        className="cursor-pointer w-20 mt-2 px-4 py-2 rounded-md bg-[#016699] text-white text-xs font-semibold"
+                      >
+                        View
+                      </button>
                     </div>
                   </div>
                 </div>
