@@ -1,5 +1,11 @@
 import React, { useEffect } from "react";
-import { MapContainer, TileLayer, Marker, useMapEvents, useMap } from "react-leaflet";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  useMapEvents,
+  useMap,
+} from "react-leaflet";
 import L from "leaflet";
 import "../leaflet-styles-import";
 import { BlurFade } from "./ui/blur-fade";
@@ -87,7 +93,9 @@ function getBearing(start: [number, number], end: [number, number]) {
   const [lat2, lon2] = end.map(toRad);
   const dLon = lon2 - lon1;
   const y = Math.sin(dLon) * Math.cos(lat2);
-  const x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLon);
+  const x =
+    Math.cos(lat1) * Math.sin(lat2) -
+    Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLon);
   const brng = Math.atan2(y, x);
   return (toDeg(brng) + 360) % 360;
 }
@@ -111,23 +119,25 @@ const AnimatedPlaneMarker: React.FC = () => {
       const lngSpan = ne.lng - sw.lng;
       // extend start earlier (outside SW) and end later (outside NE) so the plane enters and exits the viewport
       // Use moderate extension (12%) so plane starts just outside the visible area
-      const extendLat = latSpan * 0.30; // 12% extension
-      const extendLng = lngSpan * 0.30;
+      const extendLat = latSpan * 0.3; // 12% extension
+      const extendLng = lngSpan * 0.3;
       setStart([sw.lat - extendLat, sw.lng - extendLng]);
       setEnd([ne.lat + extendLat, ne.lng + extendLng]);
     };
     updateBounds();
     map.on("moveend zoomend resize", updateBounds);
-    return () => { map.off("moveend zoomend resize", updateBounds); };
+    return () => {
+      map.off("moveend zoomend resize", updateBounds);
+    };
   }, [map]);
 
   // Animation loop restarts whenever start/end change — use linear progress for constant speed
   React.useEffect(() => {
     if (!start || !end) return;
-    let startTime = performance.now();
+    const startTime = performance.now();
     let frame: number;
     const animate = (now: number) => {
-      let t = ((now - startTime) % DURATION) / DURATION;
+      const t = ((now - startTime) % DURATION) / DURATION;
       // linear progress ensures constant speed across the entire path
       setProgress(t);
       frame = requestAnimationFrame(animate);
@@ -171,8 +181,18 @@ const AnimatedPlaneMarker: React.FC = () => {
       const lngInnerLow = sw.lng + lngMargin;
       const lngInnerHigh = ne.lng - lngMargin;
 
-      const latVis = lat < latInnerLow ? (lat - sw.lat) / latMargin : lat > latInnerHigh ? (ne.lat - lat) / latMargin : 1;
-      const lngVis = lng < lngInnerLow ? (lng - sw.lng) / lngMargin : lng > lngInnerHigh ? (ne.lng - lng) / lngMargin : 1;
+      const latVis =
+        lat < latInnerLow
+          ? (lat - sw.lat) / latMargin
+          : lat > latInnerHigh
+          ? (ne.lat - lat) / latMargin
+          : 1;
+      const lngVis =
+        lng < lngInnerLow
+          ? (lng - sw.lng) / lngMargin
+          : lng > lngInnerHigh
+          ? (ne.lng - lng) / lngMargin
+          : 1;
 
       visible = Math.max(0, Math.min(1, Math.min(latVis, lngVis)));
     }
@@ -191,7 +211,7 @@ const AnimatedPlaneMarker: React.FC = () => {
     <Marker
       position={[lat, lng]}
       icon={L.divIcon({
-        className: '',
+        className: "",
         html,
         iconSize: [40, 40],
         iconAnchor: [20, 20],
@@ -207,10 +227,12 @@ const MapWithCustomZoom: React.FC = () => {
 
   // Inject styles for animations
   useEffect(() => {
-    const styleEl = document.createElement('style');
+    const styleEl = document.createElement("style");
     styleEl.textContent = mapStyles;
     document.head.appendChild(styleEl);
-    return () => { document.head.removeChild(styleEl); };
+    return () => {
+      document.head.removeChild(styleEl);
+    };
   }, []);
 
   // Update zoom state when map zoom changes
@@ -253,7 +275,7 @@ const MapWithCustomZoom: React.FC = () => {
         <Marker
           position={[47.4979, 19.0402]}
           icon={L.divIcon({
-            className: '',
+            className: "",
             html: `<div style="position:relative;width:40px;height:40px;"><div class="pulse-ring"></div><div class="pulsing-dot"></div></div>`,
             iconSize: [40, 40],
             iconAnchor: [20, 20],
@@ -284,31 +306,31 @@ const MapWithCustomZoom: React.FC = () => {
 };
 
 const BentoCard: React.FC = () => {
-  const generateContributions = () => {
-    const contributions = [];
+  const [contributions, setContributions] = React.useState<{ week: number; day: number; level: number }[]>([]);
+
+  React.useEffect(() => {
+    const contributionsArray: { week: number; day: number; level: number }[] = [];
     for (let week = 0; week < 12; week++) {
       for (let day = 0; day < 7; day++) {
         const level = Math.random() > 0.3 ? Math.floor(Math.random() * 4) : 0;
-        contributions.push({ week, day, level });
+        contributionsArray.push({ week, day, level });
       }
     }
-    return contributions;
-  };
-
-  const contributions = generateContributions();
+    setContributions(contributionsArray);
+  }, []);
 
   const cardClass =
     "bg-white rounded-2xl border border-gray-200 transition-transform duration-300 transform-gpu hover:scale-[1.02]";
   const boxShadowStyle = {
-    boxShadow:
-      "rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px",
+    // lighter single shadow to avoid a heavy border-like outline
+    boxShadow: "rgba(0, 0, 0, 0.04) 0px 6px 18px 0px",
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8 overflow-x-hidden">
+    <div className="min-h-screen bg-white p-8 overflow-x-hidden">
       <div className="max-w-7xl mx-auto grid grid-cols-12 gap-10 lg:gap-12">
         <div className="col-span-12 lg:col-span-3 lg:mt-0 lg:sticky lg:top-8 lg:self-start">
-          <div className="pt-6 lg:pt-0 lg:pl-6">
+          <div className="pt-6 lg:pt-0 lg:pl-0 lg:-ml-4">
             <img
               src="https://storage.googleapis.com/creatorspace-public/users%2Fcmj9czwp000z0tr01oggxkibz%2Fd3zmnQOL8CLnOXIx-CleanShot%25202025-12-17%2520at%252003.35.54%25402x.png"
               alt="Serdar"
@@ -332,11 +354,11 @@ const BentoCard: React.FC = () => {
         </div>
 
         <div
-          className="col-span-12 lg:col-span-9 space-y-5 lg:pl-8 xl:pl-12 2xl:pl-16 overflow-y-auto hide-scrollbar pr-4"
+          className="col-span-12 lg:col-span-9 space-y-5 lg:pl-16 xl:pl-20 2xl:pl-28 overflow-y-auto hide-scrollbar pr-4"
           style={{ maxHeight: "calc(100vh - 4rem)" }}
         >
           <div
-            className="text-left w-full px-1 sticky top-0 z-20 bg-gray-50 pb-3 pt-4"
+            className="text-left w-full px-1 sticky top-0 z-20 bg-white pb-3 pt-4"
             style={{ marginLeft: -2 }}
           >
             <BlurFade delay={0.1} inView>
@@ -354,7 +376,7 @@ const BentoCard: React.FC = () => {
               >
                 {/* Location label box */}
                 <div
-                  className="absolute left-1/2 -translate-x-1/2 bottom-3 bg-white rounded-xl px-4 py-1 flex items-center border border-gray-200 z-1000"
+                  className="absolute ml-3 bottom-3 bg-white rounded-xl px-4 py-1 flex items-center border border-gray-200 z-1000"
                   style={{
                     ...boxShadowStyle,
                     fontWeight: 500,
@@ -448,7 +470,7 @@ const BentoCard: React.FC = () => {
                     style={boxShadowStyle}
                   >
                     <div className="flex flex-col gap-3">
-                      <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center">
+                      <div className="w-12 h-12 bg-[#016699] rounded-lg flex items-center justify-center">
                         <svg
                           className="w-6 h-6 text-white"
                           fill="currentColor"
@@ -515,13 +537,19 @@ const BentoCard: React.FC = () => {
             </div>
 
             <BlurFade delay={0.6} inView className="lg:col-span-2">
-              <h2 className="text-2xl font-bold text-gray-900 tracking-tight mb-7 mt-3">Projects</h2>
+              <h2 className="text-2xl font-bold text-gray-900 tracking-tight mb-7 mt-3">
+                Projects
+              </h2>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 {/* AI Summarizer Card */}
                 <div className={`${cardClass} p-6`} style={boxShadowStyle}>
                   <div>
-                    <p className="font-semibold text-gray-900 mb-2">AI Summarizer</p>
-                    <p className="text-xs text-gray-500">Summarization tool with AI-powered features.</p>
+                    <p className="font-semibold text-gray-900 mb-2">
+                      AI Summarizer
+                    </p>
+                    <p className="text-xs text-gray-500">
+                      Summarization tool with AI-powered features.
+                    </p>
                     <div className="mt-4 flex items-start gap-2">
                       <a
                         href="https://github.com/atadurdyyewserdar/ai-summarizer"
@@ -538,8 +566,12 @@ const BentoCard: React.FC = () => {
                 {/* Corners Game Card */}
                 <div className={`${cardClass} p-6`} style={boxShadowStyle}>
                   <div>
-                    <p className="font-semibold text-gray-900 mb-2">Corners Game</p>
-                    <p className="text-xs text-gray-500">Interactive game built with modern web technologies.</p>
+                    <p className="font-semibold text-gray-900 mb-2">
+                      Corners Game
+                    </p>
+                    <p className="text-xs text-gray-500">
+                      Interactive game built with modern web technologies.
+                    </p>
                     <div className="mt-4 flex items-start gap-2">
                       <a
                         href="https://corners-game-liart.vercel.app/"
@@ -552,9 +584,11 @@ const BentoCard: React.FC = () => {
                     </div>
                   </div>
                 </div>
+
+                {/* Discord Bento Widget */}
+                {/* Paste code here */}
               </div>
             </BlurFade>
-
           </div>
         </div>
       </div>
@@ -563,3 +597,39 @@ const BentoCard: React.FC = () => {
 };
 
 export default BentoCard;
+
+
+
+// Discord Bento Card (for reference)
+
+// <div
+//   className={`${cardClass} p-4 bg-[#5865F2] text-white flex flex-col justify-between min-h-[180px] group cursor-pointer overflow-hidden relative border-none`}
+//   style={{
+//     ...boxShadowStyle,
+//     background: "linear-gradient(135deg, #5865F2 0%, #4752C4 100%)",
+//   }}
+//   onClick={() => window.open("https://discord.gg/users/serdaratadu", "_blank")}
+// >
+//   {/* 2.5D Discord Logo */}
+//   <div className="relative">
+//     <div className="relative z-10 transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-3">
+//       <svg
+//         className="w-14 h-14 text-white drop-shadow-[0_8px_12px_rgba(0,0,0,0.2)]"
+//         fill="currentColor"
+//         viewBox="0 0 24 24"
+//       >
+//         <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.074 0 0 0-.079-.037 19.736 19.736 0 0 0-4.885 1.515.069.069 0 0 0-.032.027C.533 9.048-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.736 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.419-2.157 2.419zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.419-2.157 2.419z" />
+//       </svg>
+//     </div>
+//     {/* Soft ambient glow behind logo */}
+//     <div className="absolute top-2 left-2 w-12 h-12 bg-white/10 rounded-full blur-xl" />
+//   </div>
+
+//   <div className="relative z-10">
+//     <h3 className="text-2xl font-bold tracking-tight">Discord</h3>
+//     <p className="text-sm text-white/80 font-medium">@serdar</p>
+//   </div>
+
+//   {/* 2.5D Decorative Elements */}
+//   <div className="absolute -right-8 -bottom-8 w-32 h-32 bg-white/5 rounded-full blur-3xl group-hover:bg-white/10 transition-colors duration-700" />
+// </div>;
