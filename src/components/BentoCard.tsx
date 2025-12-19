@@ -332,8 +332,8 @@ const BentoCard: React.FC = () => {
   return (
     <div className="min-h-screen bg-white p-4 sm:p-6 lg:p-8 overflow-x-hidden">
       <div className="max-w-7xl mx-auto grid grid-cols-12 gap-6 sm:gap-8 lg:gap-10 xl:gap-12">
-        <div className="col-span-12 lg:col-span-3 lg:mt-0 lg:sticky lg:top-8 lg:self-start">
-          <div className="pt-6 lg:pt-0 lg:pl-0 lg:-ml-4">
+        <div className="col-span-12 lg:col-span-3 lg:mt-0 static lg:sticky lg:top-8 lg:self-start">
+          <div className="pt-2 sm:pt-4 lg:pt-0 lg:pl-0 lg:-ml-4">
             <img
               src="https://storage.googleapis.com/creatorspace-public/users%2Fcmj9czwp000z0tr01oggxkibz%2Fd3zmnQOL8CLnOXIx-CleanShot%25202025-12-17%2520at%252003.35.54%25402x.png"
               alt="Serdar"
