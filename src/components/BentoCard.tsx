@@ -480,7 +480,7 @@ const BentoCard: React.FC = () => {
                       {contributions.slice(0, 84).map((contrib, idx) => (
                         <div
                           key={idx}
-                          className={`w-2 h-2 rounded ${
+                          className={`w-2 h-2 rounded-sm ${
                             contrib.level === 0
                               ? "bg-gray-200"
                               : contrib.level === 1
