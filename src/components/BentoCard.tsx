@@ -457,7 +457,7 @@ const BentoCard: React.FC = () => {
                   </div>
 
                   <div className="flex-1 overflow-hidden">
-                    <div className="hidden sm:grid grid-cols-25 grid-rows-2 gap-1">
+                    <div className="hidden sm:grid sm:grid-cols-5 grid-cols-25 grid-rows-2 gap-1">
                       {contributions.slice(0, 125).map((contrib, idx) => (
                         <div
                           key={idx}
