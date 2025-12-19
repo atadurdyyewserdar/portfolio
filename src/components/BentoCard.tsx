@@ -224,6 +224,7 @@ const AnimatedPlaneMarker: React.FC = () => {
 const MapWithCustomZoom: React.FC = () => {
   const mapRef = React.useRef<L.Map | null>(null);
   const [zoom, setZoom] = React.useState(12);
+  const [isMobile, setIsMobile] = React.useState(window.innerWidth < 1024);
 
   // Inject styles for animations
   useEffect(() => {
@@ -233,6 +234,15 @@ const MapWithCustomZoom: React.FC = () => {
     return () => {
       document.head.removeChild(styleEl);
     };
+  }, []);
+
+  // Update mobile state on resize
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   // Update zoom state when map zoom changes
@@ -265,7 +275,7 @@ const MapWithCustomZoom: React.FC = () => {
           zIndex: 1,
           borderRadius: "inherit",
         }}
-        dragging={true}
+        dragging={!isMobile}
         zoomControl={false}
         attributionControl={false}
       >
