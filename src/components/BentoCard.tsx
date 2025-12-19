@@ -330,24 +330,24 @@ const BentoCard: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white p-8 overflow-x-hidden">
-      <div className="max-w-7xl mx-auto grid grid-cols-12 gap-10 lg:gap-12">
+    <div className="min-h-screen bg-white p-4 sm:p-6 lg:p-8 overflow-x-hidden">
+      <div className="max-w-7xl mx-auto grid grid-cols-12 gap-6 sm:gap-8 lg:gap-10 xl:gap-12">
         <div className="col-span-12 lg:col-span-3 lg:mt-0 lg:sticky lg:top-8 lg:self-start">
           <div className="pt-6 lg:pt-0 lg:pl-0 lg:-ml-4">
             <img
               src="https://storage.googleapis.com/creatorspace-public/users%2Fcmj9czwp000z0tr01oggxkibz%2Fd3zmnQOL8CLnOXIx-CleanShot%25202025-12-17%2520at%252003.35.54%25402x.png"
               alt="Serdar"
-              className="w-48 h-48 rounded-full object-cover mb-4"
+              className="w-32 h-32 sm:w-40 sm:h-40 lg:w-48 lg:h-48 rounded-full object-cover mb-4 mx-auto lg:mx-0"
               style={{ boxShadow: "0 4px 24px 0 rgba(0,0,0,0.10)" }}
             />
-            <div className="text-left">
-              <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 tracking-tight">
+            <div className="text-center lg:text-left">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 tracking-tight">
                 Serdar
               </h1>
-              <p className="text-gray-500 text-lg lg:text-2xl mt-2">
+              <p className="text-gray-500 text-base sm:text-lg lg:text-2xl mt-2">
                 Software Engineer
               </p>
-              <p className="text-gray-600 mt-4 max-w-md text-sm lg:text-base">
+              <p className="text-gray-600 mt-4 max-w-md text-xs sm:text-sm lg:text-base mx-auto lg:mx-0">
                 Hey there! I'm an experienced Software Engineer with over 3
                 years of professional experience in Java, Spring Boot, and REST
                 APIs. I love designing scalable backend and
@@ -360,15 +360,15 @@ const BentoCard: React.FC = () => {
         </div>
 
         <div
-          className="col-span-12 lg:col-span-9 space-y-5 lg:pl-16 xl:pl-20 2xl:pl-28 overflow-y-auto hide-scrollbar pr-4"
+          className="col-span-12 lg:col-span-9 space-y-5 lg:pl-16 xl:pl-20 2xl:pl-28 overflow-y-auto hide-scrollbar pr-2 sm:pr-4"
           style={{ maxHeight: "calc(100vh - 4rem)" }}
         >
           <div
-            className="text-left w-full px-1 sticky top-0 z-20 bg-white pb-3 pt-4"
+            className="text-left w-full px-1 sticky top-0 z-20 bg-white pb-2 sm:pb-3 pt-2 sm:pt-4"
             style={{ marginLeft: -2 }}
           >
             <BlurFade delay={0.1} inView>
-              <h2 className="text-2xl font-bold text-gray-900 tracking-tight">
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">
                 Welcome 👋
               </h2>
             </BlurFade>
@@ -377,7 +377,7 @@ const BentoCard: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
             <BlurFade delay={0.2} inView className="lg:col-span--2">
               <div
-                className={`${cardClass} overflow-hidden h-[390px] relative`}
+                className={`${cardClass} overflow-hidden h-[280px] sm:h-[320px] lg:h-[390px] relative`}
                 style={boxShadowStyle}
               >
                 {/* Location label box */}
@@ -402,7 +402,7 @@ const BentoCard: React.FC = () => {
               <BlurFade
                 delay={0.3}
                 inView
-                className="lg:col-start-2 mb-8 h-[190px]"
+                className="lg:col-start-2 mb-5 sm:mb-8 min-h-[160px] sm:h-[190px]"
               >
                 <div
                   className={`${cardClass} p-4 flex flex-col gap-4 w-full pt-5 pb-10`}
@@ -447,12 +447,31 @@ const BentoCard: React.FC = () => {
                     </button>
                   </div>
 
-                  <div className="flex-1">
-                    <div className="grid grid-cols-25 grid-rows-2 gap-1">
+                  <div className="flex-1 overflow-hidden">
+                    <div className="hidden sm:grid grid-cols-25 grid-rows-2 gap-1">
                       {contributions.slice(0, 125).map((contrib, idx) => (
                         <div
                           key={idx}
-                          className={`w-3 h-3 rounded ${
+                          className={`w-2 h-2 sm:w-3 sm:h-3 rounded ${
+                            contrib.level === 0
+                              ? "bg-gray-200"
+                              : contrib.level === 1
+                              ? "bg-emerald-200"
+                              : contrib.level === 2
+                              ? "bg-emerald-400"
+                              : contrib.level === 3
+                              ? "bg-emerald-500"
+                              : "bg-emerald-600"
+                          }`}
+                        />
+                      ))}
+                    </div>
+                    {/* Simplified mobile view */}
+                    <div className="sm:hidden grid grid-cols-12 grid-rows-7 gap-1">
+                      {contributions.slice(0, 84).map((contrib, idx) => (
+                        <div
+                          key={idx}
+                          className={`w-2 h-2 rounded ${
                             contrib.level === 0
                               ? "bg-gray-200"
                               : contrib.level === 1
@@ -469,7 +488,7 @@ const BentoCard: React.FC = () => {
                   </div>
                 </div>
               </BlurFade>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
                 <div className="cursor-pointer">
                   <div
                     className={`${cardClass} p-4 w-full cursor-pointer`}
@@ -493,10 +512,10 @@ const BentoCard: React.FC = () => {
                         </svg>
                       </div>
                       <div className="">
-                        <p className="text-sm text-gray-900">
+                        <p className="text-xs sm:text-sm text-gray-900">
                           Let's connect on
                         </p>
-                        <p className="text-sm text-gray-900">LinkeIn</p>
+                        <p className="text-sm sm:text-base font-semibold text-gray-900">LinkedIn</p>
                       </div>
                       <div>
                         <a
@@ -542,8 +561,8 @@ const BentoCard: React.FC = () => {
                       </div>
                       <div>
                         <div>
-                          <p className="text-sm text-gray-900">Follow me on</p>
-                          <p className="text-sm text-gray-900">Instagram</p>
+                          <p className="text-xs sm:text-sm text-gray-900">Follow me on</p>
+                          <p className="text-sm sm:text-base font-semibold text-gray-900">Instagram</p>
                         </div>
                       </div>
                       <div>
@@ -634,37 +653,3 @@ const BentoCard: React.FC = () => {
 };
 
 export default BentoCard;
-
-// Discord Bento Card (for reference)
-
-// <div
-//   className={`${cardClass} p-4 bg-[#5865F2] text-white flex flex-col justify-between min-h-[180px] group cursor-pointer overflow-hidden relative border-none`}
-//   style={{
-//     ...boxShadowStyle,
-//     background: "linear-gradient(135deg, #5865F2 0%, #4752C4 100%)",
-//   }}
-//   onClick={() => window.open("https://discord.gg/users/serdaratadu", "_blank")}
-// >
-//   {/* 2.5D Discord Logo */}
-//   <div className="relative">
-//     <div className="relative z-10 transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-3">
-//       <svg
-//         className="w-14 h-14 text-white drop-shadow-[0_8px_12px_rgba(0,0,0,0.2)]"
-//         fill="currentColor"
-//         viewBox="0 0 24 24"
-//       >
-//         <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.074 0 0 0-.079-.037 19.736 19.736 0 0 0-4.885 1.515.069.069 0 0 0-.032.027C.533 9.048-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.736 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.419-2.157 2.419zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.419-2.157 2.419z" />
-//       </svg>
-//     </div>
-//     {/* Soft ambient glow behind logo */}
-//     <div className="absolute top-2 left-2 w-12 h-12 bg-white/10 rounded-full blur-xl" />
-//   </div>
-
-//   <div className="relative z-10">
-//     <h3 className="text-2xl font-bold tracking-tight">Discord</h3>
-//     <p className="text-sm text-white/80 font-medium">@serdar</p>
-//   </div>
-
-//   {/* 2.5D Decorative Elements */}
-//   <div className="absolute -right-8 -bottom-8 w-32 h-32 bg-white/5 rounded-full blur-3xl group-hover:bg-white/10 transition-colors duration-700" />
-// </div>;
