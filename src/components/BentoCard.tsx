@@ -223,7 +223,7 @@ const AnimatedPlaneMarker: React.FC = () => {
 // Custom map component with zoom controls in bottom right
 const MapWithCustomZoom: React.FC = () => {
   const mapRef = React.useRef<L.Map | null>(null);
-  const [zoom, setZoom] = React.useState(14);
+  const [zoom, setZoom] = React.useState(12);
 
   // Inject styles for animations
   useEffect(() => {
