@@ -411,7 +411,7 @@ const BentoCard: React.FC = () => {
               <BlurFade
                 delay={0.3}
                 inView
-                className="lg:col-start-2 mb-5 sm:mb-8 min-h-[160px] sm:h-[190px]"
+                className="lg:col-start-2 lg:mb-7 mb-5 min-h-[160px] lg:h-[190px]"
               >
                 <div
                   className={`${cardClass} p-4 flex flex-col gap-4 w-full pt-5 pb-10`}
@@ -457,7 +457,7 @@ const BentoCard: React.FC = () => {
                   </div>
 
                   <div className="flex-1 overflow-hidden">
-                    <div className="hidden sm:grid sm:grid-cols-5 grid-cols-25 grid-rows-2 gap-1">
+                    <div className="hidden sm:grid lg:grid-cols-25 grid-rows-2 gap-1">
                       {contributions.slice(0, 125).map((contrib, idx) => (
                         <div
                           key={idx}
@@ -476,11 +476,11 @@ const BentoCard: React.FC = () => {
                       ))}
                     </div>
                     {/* Simplified mobile view */}
-                    <div className="sm:hidden grid grid-cols-12 grid-rows-7 gap-1">
+                    <div className="sm:hidden grid grid-cols-16 grid-rows-7 gap-1 mt-3">
                       {contributions.slice(0, 84).map((contrib, idx) => (
                         <div
                           key={idx}
-                          className={`w-2 h-2 rounded-sm ${
+                          className={`w-3 h-3 rounded-sm ${
                             contrib.level === 0
                               ? "bg-gray-200"
                               : contrib.level === 1
