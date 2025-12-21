@@ -17,6 +17,13 @@ html, body, #root {
   height: 100%;
 }
 
+/* Prevent body scroll on desktop, allow on mobile/tablet */
+@media (min-width: 1024px) {
+  html, body {
+    overflow: hidden;
+  }
+}
+
 /* Keep minimal reset for code examples */
 code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono",
