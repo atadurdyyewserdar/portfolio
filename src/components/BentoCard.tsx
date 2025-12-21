@@ -573,7 +573,7 @@ const Portfolio: React.FC = () => {
                   }
                 >
                   <div className="flex flex-col gap-3">
-                    <div className="w-12 h-12 bg-linear-to-br from-purple-600 via-pink-500 to-orange-500 rounded-lg flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-lg flex items-center justify-center bg-gradient-to-br from-purple-600 via-pink-500 to-orange-500">
                       <svg
                         className="w-6 h-6 text-white"
                         fill="currentColor"
