@@ -660,8 +660,8 @@ const Portfolio: React.FC = () => {
         </div>
       </div>
 
-      <div className="border-t border-gray-100 dark:border-gray-800 p-4 sm:p-6 lg:p-8 text-center bg-white dark:bg-gray-900 transition-colors duration-300">
-        <SparklesText className="text-sm text-gray-500 dark:text-gray-400 font-medium">
+      <div className="border-t border-gray-100 dark:border-gray-800 py-3 px-4 text-center bg-white dark:bg-gray-900 transition-colors duration-300">
+        <SparklesText className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-medium">
           ✨ Powered by Magic UI & Bento
         </SparklesText>
       </div>
