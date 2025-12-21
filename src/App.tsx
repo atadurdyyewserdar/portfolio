@@ -1,7 +1,11 @@
 import BentoCard from './components/BentoCard'
 
 function App() {
-  return <BentoCard />
+  return (
+    <>
+      <BentoCard />
+    </>
+  )
 }
 
 export default App

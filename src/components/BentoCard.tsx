@@ -10,7 +10,6 @@ import L from "leaflet";
 import "../leaflet-styles-import";
 import { BlurFade } from "./ui/blur-fade";
 import ThemeToggle from "./ui/theme-toggle";
-import { SparklesText } from "./ui/sparkles-text";
 import { BentoCard as BentoCardUI } from "./ui/bento-grid";
 
 // CSS for pulsing dot and flying plane
@@ -319,7 +318,7 @@ const MapWithCustomZoom: React.FC = () => {
 };
 
 const ContributionGrid: React.FC<{
-  contributions: { week: number; day: number; level: number }[]
+  contributions: { week: number; day: number; level: number }[];
 }> = ({ contributions }) => {
   const ref = React.useRef<HTMLDivElement | null>(null);
   const [cols, setCols] = React.useState(20);
@@ -334,7 +333,10 @@ const ContributionGrid: React.FC<{
       const width = entries[0].contentRect.width;
 
       // Keep a fixed cell size and only adapt the number of columns
-      const calculatedCols = Math.max(4, Math.floor((width + gap) / (CELL_SIZE + gap)));
+      const calculatedCols = Math.max(
+        4,
+        Math.floor((width + gap) / (CELL_SIZE + gap))
+      );
 
       // For smaller widths, reduce rows slightly to avoid crowding
       let calculatedRows = 5;
@@ -402,268 +404,267 @@ const Portfolio: React.FC = () => {
       <div className="fixed top-4 right-4 z-50">
         <ThemeToggle />
       </div>
-      
+
       <div className="flex-1 min-h-0 lg:overflow-hidden">
         <div className="h-full max-w-7xl mx-auto grid grid-cols-12 gap-6 sm:gap-8 lg:gap-10 xl:gap-12 p-4 sm:p-6 lg:p-8 w-full">
           {/* Left profile section: normal flow on mobile, sticky on desktop */}
           <div className="col-span-12 lg:col-span-3 lg:sticky lg:top-8 lg:self-start">
-          <div className="pt-2 sm:pt-4 lg:pt-0 lg:pl-0 lg:-ml-4">
-            <img
-              src="https://storage.googleapis.com/creatorspace-public/users%2Fcmj9czwp000z0tr01oggxkibz%2Fd3zmnQOL8CLnOXIx-CleanShot%25202025-12-17%2520at%252003.35.54%25402x.png"
-              alt="Serdar"
-              className="w-32 h-32 sm:w-40 sm:h-40 lg:w-48 lg:h-48 rounded-full object-cover mb-4 mx-auto lg:mx-0"
-              style={{ boxShadow: "0 4px 24px 0 rgba(0,0,0,0.10)" }}
-            />
-            <div className="text-center lg:text-left">
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white tracking-tight">
-                Serdar
-              </h1>
-              <p className="text-gray-500 dark:text-gray-400 text-base sm:text-lg lg:text-2xl mt-2">
-                Software Engineer
-              </p>
-              <p className="text-gray-600 dark:text-gray-300 mt-4 max-w-md text-xs sm:text-sm lg:text-base mx-auto lg:mx-0">
-                Hey there! I'm an experienced Software Engineer with over 3
-                years of professional experience in Java, Spring Boot, and REST
-                APIs. I love designing scalable backend and
-                skilled in deploying applications on AWS EC2 and integrating
-                cloud services. Working in Agile/Scrum environments and leading
-                development teams is my jam.
-              </p>
+            <div className="pt-2 sm:pt-4 lg:pt-0 lg:pl-0 lg:-ml-4">
+              <img
+                src="https://storage.googleapis.com/creatorspace-public/users%2Fcmj9czwp000z0tr01oggxkibz%2Fd3zmnQOL8CLnOXIx-CleanShot%25202025-12-17%2520at%252003.35.54%25402x.png"
+                alt="Serdar"
+                className="w-32 h-32 sm:w-40 sm:h-40 lg:w-48 lg:h-48 rounded-full object-cover mb-4 mx-auto lg:mx-0"
+                style={{ boxShadow: "0 4px 24px 0 rgba(0,0,0,0.10)" }}
+              />
+              <div className="text-center lg:text-left">
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white tracking-tight">
+                  Serdar
+                </h1>
+                <p className="text-gray-500 dark:text-gray-400 text-base sm:text-lg lg:text-2xl mt-2">
+                  Software Engineer
+                </p>
+                <p className="text-gray-600 dark:text-gray-300 mt-4 max-w-md text-xs sm:text-sm lg:text-base mx-auto lg:mx-0">
+                  Hey there! I'm an experienced Software Engineer with over 3
+                  years of professional experience in Java, Spring Boot, and
+                  REST APIs. I love designing scalable backend and skilled in
+                  deploying applications on AWS EC2 and integrating cloud
+                  services. Working in Agile/Scrum environments and leading
+                  development teams is my jam.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="col-span-12 lg:col-span-9 space-y-5 lg:pl-16 xl:pl-20 2xl:pl-28 lg:overflow-y-auto lg:max-h-[calc(100vh-4rem)] hide-scrollbar">
+            <div
+              className="text-left w-full px-1 sticky top-0 z-20 bg-white dark:bg-gray-900 pb-2 sm:pb-3 pt-2 sm:pt-4 transition-colors duration-300"
+              style={{ marginLeft: -2 }}
+            >
+              <BlurFade delay={0.1} inView>
+                <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white tracking-tight">
+                  Welcome 👋
+                </h2>
+              </BlurFade>
             </div>
 
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 p-2">
+              <BlurFade delay={0.2} inView className="lg:col-span--2">
+                <BentoCardUI className="overflow-hidden h-[280px] sm:h-[320px] lg:h-[390px] relative">
+                  {/* Location label box */}
+                  <div
+                    className="absolute ml-3 bottom-3 bg-white dark:bg-gray-800 rounded-xl px-4 py-1 flex items-center border border-gray-200 dark:border-gray-700 z-1000 transition-colors duration-300"
+                    style={{
+                      boxShadow: "rgba(0, 0, 0, 0.04) 0px 6px 18px 0px",
+                      fontWeight: 500,
+                      fontSize: "1.1rem",
+                      letterSpacing: 0,
+                    }}
+                  >
+                    <span className="mr-2 text-lg">📍</span>
+                    <span className="text-gray-900 dark:text-white">
+                      Budapest, Hungary
+                    </span>
+                  </div>
+                  {/* Leaflet map of Budapest, zoom 10, Apple Maps-style customization to follow */}
+                  <MapWithCustomZoom />
+                </BentoCardUI>
+              </BlurFade>
 
-          </div>
-        </div>
-
-        <div className="col-span-12 lg:col-span-9 space-y-5 lg:pl-16 xl:pl-20 2xl:pl-28 lg:overflow-y-auto lg:max-h-[calc(100vh-4rem)] hide-scrollbar">
-
-          <div
-            className="text-left w-full px-1 sticky top-0 z-20 bg-white dark:bg-gray-900 pb-2 sm:pb-3 pt-2 sm:pt-4 transition-colors duration-300"
-            style={{ marginLeft: -2 }}
-          >
-            <BlurFade delay={0.1} inView>
-              <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white tracking-tight">
-                Welcome 👋
-              </h2>
-            </BlurFade>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 p-2">
-            <BlurFade delay={0.2} inView className="lg:col-span--2">
-              <BentoCardUI
-                className="overflow-hidden h-[280px] sm:h-[320px] lg:h-[390px] relative"
-              >
-                {/* Location label box */}
-                <div
-                  className="absolute ml-3 bottom-3 bg-white dark:bg-gray-800 rounded-xl px-4 py-1 flex items-center border border-gray-200 dark:border-gray-700 z-1000 transition-colors duration-300"
-                  style={{
-                    boxShadow: "rgba(0, 0, 0, 0.04) 0px 6px 18px 0px",
-                    fontWeight: 500,
-                    fontSize: "1.1rem",
-                    letterSpacing: 0,
-                  }}
+              <div className="">
+                <BlurFade
+                  delay={0.3}
+                  inView
+                  className="lg:col-start-2 lg:mb-7 mb-5 min-h-[160px] lg:h-[190px]"
                 >
-                  <span className="mr-2 text-lg">📍</span>
-                  <span className="text-gray-900 dark:text-white">Budapest, Hungary</span>
-                </div>
-                {/* Leaflet map of Budapest, zoom 10, Apple Maps-style customization to follow */}
-                <MapWithCustomZoom />
-              </BentoCardUI>
-            </BlurFade>
+                  <BentoCardUI className="p-4 flex flex-col gap-4 w-full pt-5 pb-10">
+                    {/* GitHub top box */}
+                    <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3">
+                      <div className="flex items-center gap-3">
+                        <div className="w-12 h-12 rounded-xl bg-black dark:bg-gray-700 flex items-center justify-center transition-colors duration-300">
+                          <svg
+                            className="w-6 h-6 text-white"
+                            fill="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </div>
+                        <div>
+                          <span className="text-sm font-medium text-gray-900 dark:text-white">
+                            Serdar
+                          </span>
+                          <p className="text-xs text-gray-500 dark:text-gray-400">
+                            GitHub · atadurdyyewserdar
+                          </p>
+                        </div>
+                      </div>
+                      <button
+                        onClick={() =>
+                          window.open(
+                            "https://github.com/atadurdyyewserdar",
+                            "_blank",
+                            "noopener,noreferrer"
+                          )
+                        }
+                        className="cursor-pointer px-4 py-2 border border-zinc-300 dark:border-gray-600 rounded-sm bg-gray-50 dark:bg-gray-700 text-xs font-semibold text-gray-900 dark:text-white transition-colors duration-300"
+                      >
+                        Follow
+                      </button>
+                    </div>
 
-            <div className="">
-              <BlurFade
-                delay={0.3}
-                inView
-                className="lg:col-start-2 lg:mb-7 mb-5 min-h-[160px] lg:h-[190px]"
-              >
-                <BentoCardUI
-                  className="p-4 flex flex-col gap-4 w-full pt-5 pb-10"
-                >
-                  {/* GitHub top box */}
-                  <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3">
-                    <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-xl bg-black dark:bg-gray-700 flex items-center justify-center transition-colors duration-300">
+                    <div className="flex-1 overflow-hidden">
+                      {/* Responsive contribution grid: adapts number of columns and rows to container width */}
+                      <ContributionGrid contributions={contributions} />
+                    </div>
+                  </BentoCardUI>
+                </BlurFade>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+                  <BentoCardUI
+                    className="p-4 w-full cursor-pointer"
+                    onClick={() =>
+                      window.open(
+                        "https://www.linkedin.com/in/atadurdyyevserdar",
+                        "_blank",
+                        "noopener,noreferrer"
+                      )
+                    }
+                  >
+                    <div className="flex flex-col gap-3">
+                      <div className="w-12 h-12 bg-[#016699] rounded-lg flex items-center justify-center">
                         <svg
                           className="w-6 h-6 text-white"
                           fill="currentColor"
                           viewBox="0 0 24 24"
                         >
-                          <path
-                            fillRule="evenodd"
-                            d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-                            clipRule="evenodd"
-                          />
+                          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                        </svg>
+                      </div>
+                      <div className="">
+                        <p className="text-xs sm:text-sm text-gray-900 dark:text-white">
+                          Let's connect on
+                        </p>
+                        <p className="text-xs sm:text-sm font-semibold text-gray-900 dark:text-white">
+                          LinkedIn
+                        </p>
+                      </div>
+                      <div>
+                        <a
+                          href="https://www.linkedin.com/in/atadurdyyevserdar"
+                          className="text-xs text-gray-500 dark:text-gray-400 mt-1"
+                        >
+                          linkedin.com
+                        </a>
+                      </div>
+                    </div>
+                  </BentoCardUI>
+
+                  <BentoCardUI
+                    className="p-4 w-full cursor-pointer"
+                    onClick={() =>
+                      window.open(
+                        "https://www.instagram.com/atadurdyevserdar/",
+                        "_blank",
+                        "noopener,noreferrer"
+                      )
+                    }
+                  >
+                    <div className="flex flex-col gap-3">
+                      <div className="w-12 h-12 rounded-lg flex items-center justify-center bg-gradient-to-br from-purple-600 via-pink-500 to-orange-500">
+                        <svg
+                          className="w-6 h-6 text-white"
+                          fill="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
                         </svg>
                       </div>
                       <div>
-                        <span className="text-sm font-medium text-gray-900 dark:text-white">
-                          Serdar
-                        </span>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">
-                          GitHub · atadurdyyewserdar
-                        </p>
+                        <div>
+                          <p className="text-xs sm:text-sm text-gray-900 dark:text-white">
+                            Follow me on
+                          </p>
+                          <p className="text-xs sm:text-sm font-semibold text-gray-900 dark:text-white">
+                            Instagram
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                    <button
-                      onClick={() =>
-                        window.open(
-                          "https://github.com/atadurdyyewserdar",
-                          "_blank",
-                          "noopener,noreferrer"
-                        )
-                      }
-                      className="cursor-pointer px-4 py-2 border border-zinc-300 dark:border-gray-600 rounded-sm bg-gray-50 dark:bg-gray-700 text-xs font-semibold text-gray-900 dark:text-white transition-colors duration-300"
-                    >
-                      Follow
-                    </button>
-                  </div>
-
-                  <div className="flex-1 overflow-hidden">
-                    {/* Responsive contribution grid: adapts number of columns and rows to container width */}
-                    <ContributionGrid contributions={contributions} />
-                  </div>
-                </BentoCardUI>
-              </BlurFade>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
-                <BentoCardUI
-                  className="p-4 w-full cursor-pointer"
-                  onClick={() =>
-                    window.open(
-                      "https://www.linkedin.com/in/atadurdyyevserdar",
-                      "_blank",
-                      "noopener,noreferrer"
-                    )
-                  }
-                >
-                  <div className="flex flex-col gap-3">
-                    <div className="w-12 h-12 bg-[#016699] rounded-lg flex items-center justify-center">
-                      <svg
-                        className="w-6 h-6 text-white"
-                        fill="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                      </svg>
-                    </div>
-                    <div className="">
-                      <p className="text-xs sm:text-sm text-gray-900 dark:text-white">
-                        Let's connect on
-                      </p>
-                      <p className="text-xs sm:text-sm font-semibold text-gray-900 dark:text-white">LinkedIn</p>
-                    </div>
-                    <div>
-                      <a
-                        href="https://www.linkedin.com/in/atadurdyyevserdar"
-                        className="text-xs text-gray-500 dark:text-gray-400 mt-1"
-                      >
-                        linkedin.com
-                      </a>
-                    </div>
-                  </div>
-                </BentoCardUI>
-
-                <BentoCardUI
-                  className="p-4 w-full cursor-pointer"
-                  onClick={() =>
-                    window.open(
-                      "https://www.instagram.com/atadurdyevserdar/",
-                      "_blank",
-                      "noopener,noreferrer"
-                    )
-                  }
-                >
-                  <div className="flex flex-col gap-3">
-                    <div className="w-12 h-12 rounded-lg flex items-center justify-center bg-gradient-to-br from-purple-600 via-pink-500 to-orange-500">
-                      <svg
-                        className="w-6 h-6 text-white"
-                        fill="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                      </svg>
-                    </div>
-                    <div>
                       <div>
-                        <p className="text-xs sm:text-sm text-gray-900 dark:text-white">Follow me on</p>
-                        <p className="text-xs sm:text-sm font-semibold text-gray-900 dark:text-white">Instagram</p>
+                        <a
+                          href="https://www.instagram.com/atadurdyevserdar/"
+                          className="text-xs text-gray-500 dark:text-gray-400 mt-1"
+                        >
+                          instagram.com
+                        </a>
                       </div>
                     </div>
+                  </BentoCardUI>
+                </div>
+              </div>
+
+              <BlurFade delay={0.6} inView className="lg:col-span-2">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white tracking-tight mb-7 mt-3">
+                  Projects
+                </h2>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                  {/* AI Summarizer Card */}
+                  <BentoCardUI className="p-6">
                     <div>
-                      <a
-                        href="https://www.instagram.com/atadurdyevserdar/"
-                        className="text-xs text-gray-500 dark:text-gray-400 mt-1"
-                      >
-                        instagram.com
-                      </a>
+                      <p className="font-semibold text-gray-900 dark:text-white mb-2">
+                        AI Summarizer
+                      </p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                        Summarization tool with AI-powered features.
+                      </p>
+                      <div className="mt-4 flex items-start gap-2">
+                        <a
+                          href="https://github.com/atadurdyyewserdar/ai-summarizer"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-block px-4 py-2 rounded-md bg-blue-500 text-xs font-semibold text-white"
+                        >
+                          View repo
+                        </a>
+                      </div>
                     </div>
-                  </div>
-                </BentoCardUI>
-              </div>
+                  </BentoCardUI>
+
+                  {/* Corners Game Card */}
+                  <BentoCardUI className="p-6">
+                    <div>
+                      <p className="font-semibold text-gray-900 dark:text-white mb-2">
+                        Corners Game
+                      </p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                        Interactive game built with modern web technologies.
+                      </p>
+                      <div className="mt-4 flex items-start gap-2">
+                        <a
+                          href="https://corners-game-liart.vercel.app/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-block px-4 py-2 rounded-md bg-green-500 text-xs font-semibold text-white"
+                        >
+                          Live Demo
+                        </a>
+                      </div>
+                    </div>
+                  </BentoCardUI>
+
+                  {/* Discord Bento Widget */}
+                  {/* Paste code here */}
+                </div>
+              </BlurFade>
             </div>
-
-            <BlurFade delay={0.6} inView className="lg:col-span-2">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white tracking-tight mb-7 mt-3">
-                Projects
-              </h2>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                {/* AI Summarizer Card */}
-                <BentoCardUI className="p-6">
-                  <div>
-                    <p className="font-semibold text-gray-900 dark:text-white mb-2">
-                      AI Summarizer
-                    </p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                      Summarization tool with AI-powered features.
-                    </p>
-                    <div className="mt-4 flex items-start gap-2">
-                      <a
-                        href="https://github.com/atadurdyyewserdar/ai-summarizer"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-block px-4 py-2 rounded-md bg-blue-500 text-xs font-semibold text-white"
-                      >
-                        View repo
-                      </a>
-                    </div>
-                  </div>
-                </BentoCardUI>
-
-                {/* Corners Game Card */}
-                <BentoCardUI className="p-6">
-                  <div>
-                    <p className="font-semibold text-gray-900 dark:text-white mb-2">
-                      Corners Game
-                    </p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                      Interactive game built with modern web technologies.
-                    </p>
-                    <div className="mt-4 flex items-start gap-2">
-                      <a
-                        href="https://corners-game-liart.vercel.app/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-block px-4 py-2 rounded-md bg-green-500 text-xs font-semibold text-white"
-                      >
-                        Live Demo
-                      </a>
-                    </div>
-                  </div>
-                </BentoCardUI>
-
-                {/* Discord Bento Widget */}
-                {/* Paste code here */}
-              </div>
-            </BlurFade>
           </div>
         </div>
       </div>
-      </div>
 
-      <div className="flex-shrink-0 border-t border-gray-100 dark:border-gray-800 py-3 px-4 text-center bg-white dark:bg-gray-900 transition-colors duration-300">
-        <SparklesText className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-medium">
-          ✨ Powered by Magic UI & Bento
-        </SparklesText>
+      <div className="mt-auto w-full dark:text-white border-t border-gray-100 dark:border-gray-800 py-3 px-4 sm:px-6 text-sm text-center bg-white dark:bg-gray-900 transition-colors duration-300" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
+        ✨ Powered by Magic UI & Bento
       </div>
     </div>
   );

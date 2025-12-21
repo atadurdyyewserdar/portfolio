@@ -89,10 +89,14 @@ code {
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
+  /* Safe defaults: avoid project-specific token utilities that may not be configured */
+  *, *::before, *::after {
+    box-sizing: border-box;
   }
-  body {
-    @apply bg-background text-foreground;
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    /* Keep theme colors managed via utility classes in components */
   }
 }
