@@ -17,7 +17,7 @@ const ThemeToggle: React.FC = () => {
         className="relative w-6 h-6"
         initial={false}
         animate={{
-          rotate: theme === 'dark' ? 180 : 0,
+          rotate: theme === 'dark' ? 0 : 180,
         }}
         transition={{
           type: 'spring',
@@ -38,6 +38,7 @@ const ThemeToggle: React.FC = () => {
             animate={{ opacity: 1, rotate: 0 }}
             exit={{ opacity: 0, rotate: 180 }}
             transition={{ duration: 0.3 }}
+            cursor="pointer"
           >
             <path
               strokeLinecap="round"
@@ -54,9 +55,9 @@ const ThemeToggle: React.FC = () => {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             className="w-6 h-6 text-blue-300"
-            initial={{ opacity: 0, rotate: -180 }}
+            initial={{ opacity: 0, rotate: 40 }}
             animate={{ opacity: 1, rotate: 0 }}
-            exit={{ opacity: 0, rotate: 180 }}
+            exit={{ opacity: 0, rotate: -180 }}
             transition={{ duration: 0.3 }}
           >
             <path
