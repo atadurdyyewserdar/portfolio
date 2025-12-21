@@ -481,7 +481,7 @@ const Portfolio: React.FC = () => {
                   className="p-4 flex flex-col gap-4 w-full pt-5 pb-10"
                 >
                   {/* GitHub top box */}
-                  <div className="flex items-center justify-between">
+                  <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3">
                     <div className="flex items-center gap-3">
                       <div className="w-12 h-12 rounded-xl bg-black dark:bg-gray-700 flex items-center justify-center transition-colors duration-300">
                         <svg
