@@ -550,7 +550,7 @@ const Portfolio: React.FC = () => {
                       <p className="text-xs sm:text-sm text-gray-900 dark:text-white">
                         Let's connect on
                       </p>
-                      <p className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white">LinkedIn</p>
+                      <p className="text-xs sm:text-sm font-semibold text-gray-900 dark:text-white">LinkedIn</p>
                     </div>
                     <div>
                       <a
@@ -586,7 +586,7 @@ const Portfolio: React.FC = () => {
                     <div>
                       <div>
                         <p className="text-xs sm:text-sm text-gray-900 dark:text-white">Follow me on</p>
-                        <p className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white">Instagram</p>
+                        <p className="text-xs sm:text-sm font-semibold text-gray-900 dark:text-white">Instagram</p>
                       </div>
                     </div>
                     <div>
