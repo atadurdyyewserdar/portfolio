@@ -397,13 +397,13 @@ const Portfolio: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen lg:h-screen lg:overflow-hidden bg-white dark:bg-gray-900 p-4 sm:p-6 lg:p-8 transition-colors duration-300">
+    <div className="bg-white dark:bg-gray-900 transition-colors duration-300 lg:h-screen lg:overflow-hidden">
       {/* Theme toggle button - fixed in top right */}
       <div className="fixed top-4 right-4 z-50">
         <ThemeToggle />
       </div>
       
-      <div className="max-w-7xl mx-auto grid grid-cols-12 gap-6 sm:gap-8 lg:gap-10 xl:gap-12 lg:h-full">
+      <div className="max-w-7xl mx-auto grid grid-cols-12 gap-6 sm:gap-8 lg:gap-10 xl:gap-12 p-4 sm:p-6 lg:p-8 lg:h-full">
         {/* Left profile section: normal flow on mobile, sticky on desktop */}
         <div className="col-span-12 lg:col-span-3 lg:sticky lg:top-8 lg:self-start">
           <div className="pt-2 sm:pt-4 lg:pt-0 lg:pl-0 lg:-ml-4">
@@ -434,9 +434,8 @@ const Portfolio: React.FC = () => {
           </div>
         </div>
 
-        <div
-          className="col-span-12 lg:col-span-9 space-y-5 lg:pl-16 xl:pl-20 2xl:pl-28 lg:overflow-y-auto lg:max-h-[calc(100vh-4rem)] lg:pr-4 hide-scrollbar"
-        >
+        <div className="col-span-12 lg:col-span-9 space-y-5 lg:pl-16 xl:pl-20 2xl:pl-28 lg:overflow-y-auto lg:max-h-[calc(100vh-4rem)] hide-scrollbar">
+
           <div
             className="text-left w-full px-1 sticky top-0 z-20 bg-white dark:bg-gray-900 pb-2 sm:pb-3 pt-2 sm:pt-4 transition-colors duration-300"
             style={{ marginLeft: -2 }}

@@ -3,22 +3,30 @@
 @variant dark (.dark &);
 
 /* ===========================================
-   SCROLLING SETUP - Clean implementation
+   SCROLLING SETUP
    =========================================== */
 
-/* Mobile & Tablet (< 1024px): Normal page scroll */
-html, body, #root {
-  height: auto;
-  min-height: 100%;
-  overflow-x: hidden;
+/* MOBILE & TABLET (< 1024px) */
+/* - Body is normal scrollable document
+/* - All content flows naturally (no fixed height)
+/* - NO internal scroll containers
+@media (max-width: 1023px) {
+  html, body, #root {
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
+  }
+  
+  body {
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+    overflow-x: hidden;
+  }
 }
 
-body {
-  touch-action: pan-y;
-  -webkit-overflow-scrolling: touch;
-}
-
-/* Desktop (>= 1024px): Fixed viewport with internal scroll */
+/* DESKTOP (>= 1024px) */
+/* - Fixed viewport (height: 100%)
+/* - Body doesn't scroll, internal panels do
 @media (min-width: 1024px) {
   html, body, #root {
     height: 100%;
@@ -39,20 +47,14 @@ body {
   display: none;
 }
 
-/* ===========================================
-   LEAFLET MAP - Disable all touch on mobile
-   =========================================== */
+/* Disable Leaflet map interactions on mobile */
 @media (max-width: 1023px) {
   .leaflet-container {
     pointer-events: none;
   }
 }
 
-/* ===========================================
-   OTHER STYLES
-   =========================================== */
-
-/* Keep minimal reset for code examples */
+/* Code styles */
 code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono",
     "Segoe UI Mono", "Noto Sans Mono", monospace;
