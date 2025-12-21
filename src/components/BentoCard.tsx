@@ -277,6 +277,8 @@ const MapWithCustomZoom: React.FC = () => {
           width: "100%",
           zIndex: 1,
           borderRadius: "inherit",
+          // Allow page scrolling on mobile (prevent map from capturing touch swipes)
+          touchAction: isMobile ? 'auto' : 'none',
         }}
         dragging={!isMobile}
         zoomControl={false}

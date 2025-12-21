@@ -22,3 +22,9 @@ code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono",
     "Segoe UI Mono", "Noto Sans Mono", monospace;
 }
+
+/* Ensure Leaflet map allows vertical page scrolling on touch devices */
+.leaflet-container {
+  touch-action: pan-y;
+  -ms-touch-action: pan-y;
+}
