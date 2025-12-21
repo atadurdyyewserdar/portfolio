@@ -438,7 +438,8 @@ const Portfolio: React.FC = () => {
         <div className="col-span-12 lg:col-span-9 space-y-5 lg:pl-16 xl:pl-20 2xl:pl-28 lg:overflow-y-auto lg:max-h-[calc(100vh-4rem)] hide-scrollbar">
 
           <div
-            className="text-left w-full sticky top-0 z-20 bg-white dark:bg-gray-900 pb-2 sm:pb-3 pt-2 sm:pt-4 transition-colors duration-300 -mx-5 px-5"
+            className="text-left w-full px-1 sticky top-0 z-20 bg-white dark:bg-gray-900 pb-2 sm:pb-3 pt-2 sm:pt-4 transition-colors duration-300"
+            style={{ marginLeft: -2 }}
           >
             <BlurFade delay={0.1} inView>
               <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white tracking-tight">
