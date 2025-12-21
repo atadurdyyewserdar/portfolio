@@ -21,7 +21,6 @@ html, body, #root {
 @media (min-width: 1024px) {
   html, body {
     overflow: hidden;
-    height: 100vh;
   }
 }
 
