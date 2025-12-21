@@ -397,14 +397,14 @@ const Portfolio: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen lg:h-screen lg:overflow-hidden bg-white dark:bg-gray-900 transition-colors duration-300 flex flex-col">
+    <div className="min-h-screen lg:h-screen bg-white dark:bg-gray-900 transition-colors duration-300 flex flex-col">
       {/* Theme toggle button - fixed in top right */}
       <div className="fixed top-4 right-4 z-50">
         <ThemeToggle />
       </div>
       
-      <div className="flex-1 lg:overflow-hidden flex flex-col">
-        <div className="max-w-7xl mx-auto grid grid-cols-12 gap-6 sm:gap-8 lg:gap-10 xl:gap-12 p-4 sm:p-6 lg:p-8 lg:h-full w-full">
+      <div className="flex-1 min-h-0 lg:overflow-hidden">
+        <div className="h-full max-w-7xl mx-auto grid grid-cols-12 gap-6 sm:gap-8 lg:gap-10 xl:gap-12 p-4 sm:p-6 lg:p-8 w-full">
           {/* Left profile section: normal flow on mobile, sticky on desktop */}
           <div className="col-span-12 lg:col-span-3 lg:sticky lg:top-8 lg:self-start">
           <div className="pt-2 sm:pt-4 lg:pt-0 lg:pl-0 lg:-ml-4">
@@ -657,10 +657,10 @@ const Portfolio: React.FC = () => {
             </BlurFade>
           </div>
         </div>
-        </div>
+      </div>
       </div>
 
-      <div className="border-t border-gray-100 dark:border-gray-800 py-3 px-4 text-center bg-white dark:bg-gray-900 transition-colors duration-300">
+      <div className="flex-shrink-0 border-t border-gray-100 dark:border-gray-800 py-3 px-4 text-center bg-white dark:bg-gray-900 transition-colors duration-300">
         <SparklesText className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-medium">
           ✨ Powered by Magic UI & Bento
         </SparklesText>
