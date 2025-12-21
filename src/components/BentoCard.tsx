@@ -448,7 +448,7 @@ const Portfolio: React.FC = () => {
             </BlurFade>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 p-2">
             <BlurFade delay={0.2} inView className="lg:col-span--2">
               <BentoCardUI
                 className="overflow-hidden h-[280px] sm:h-[320px] lg:h-[390px] relative"
