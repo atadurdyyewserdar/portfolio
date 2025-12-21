@@ -1,6 +1,6 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { useTheme } from '../../contexts/ThemeContext';
+import React from "react";
+import { motion } from "framer-motion";
+import { useTheme } from "../../contexts/ThemeContext";
 
 const ThemeToggle: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
@@ -17,15 +17,15 @@ const ThemeToggle: React.FC = () => {
         className="relative w-6 h-6"
         initial={false}
         animate={{
-          rotate: theme === 'dark' ? 0 : 180,
+          rotate: theme === "dark" ? 0 : 180,
         }}
         transition={{
-          type: 'spring',
+          type: "spring",
           stiffness: 200,
           damping: 20,
         }}
       >
-        {theme === 'light' ? (
+        {theme === "light" ? (
           <motion.svg
             key="sun"
             xmlns="http://www.w3.org/2000/svg"
@@ -48,6 +48,7 @@ const ThemeToggle: React.FC = () => {
           </motion.svg>
         ) : (
           <motion.svg
+            cursor="pointer"
             key="moon"
             width="100%"
             height="100%"
