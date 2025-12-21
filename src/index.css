@@ -3,6 +3,18 @@
 @variant dark (.dark &);
 
 /* ===========================================
+   BASE STYLES
+   =========================================== */
+
+html {
+  background-color: white;
+}
+
+html.dark {
+  background-color: rgb(17, 24, 39); /* gray-900 */
+}
+
+/* ===========================================
    SCROLLING SETUP
    =========================================== */
 
@@ -21,6 +33,7 @@
     touch-action: pan-y;
     -webkit-overflow-scrolling: touch;
     overflow-x: hidden;
+    overscroll-behavior-y: none;
   }
 }
 
