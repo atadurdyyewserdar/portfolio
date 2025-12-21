@@ -657,7 +657,7 @@ const Portfolio: React.FC = () => {
             </BlurFade>
           </div>
         </div>
-        </div>
+      </div>
       </div>
 
       <div className="border-t border-gray-100 dark:border-gray-800 p-4 sm:p-6 lg:p-8 text-center bg-white dark:bg-gray-900 transition-colors duration-300">
