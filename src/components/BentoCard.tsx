@@ -434,7 +434,7 @@ const Portfolio: React.FC = () => {
         </div>
 
         <div
-          className="col-span-12 lg:col-span-9 space-y-5 lg:pl-16 xl:pl-20 2xl:pl-28 lg:overflow-y-auto lg:max-h-[calc(100vh-4rem)] hide-scrollbar pr-2 sm:pr-4"
+          className="col-span-12 lg:col-span-9 space-y-5 lg:pl-16 xl:pl-20 2xl:pl-28 overflow-y-auto max-h-[calc(100vh-4rem)] hide-scrollbar pr-2 sm:pr-4"
         >
           <div
             className="text-left w-full px-1 sticky top-0 z-20 bg-white dark:bg-gray-900 pb-2 sm:pb-3 pt-2 sm:pt-4 transition-colors duration-300"
