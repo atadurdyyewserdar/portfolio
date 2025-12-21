@@ -403,7 +403,7 @@ const Portfolio: React.FC = () => {
         <ThemeToggle />
       </div>
       
-      <div className="flex-1 overflow-hidden flex flex-col">
+      <div className="flex-1 lg:overflow-hidden flex flex-col">
         <div className="max-w-7xl mx-auto grid grid-cols-12 gap-6 sm:gap-8 lg:gap-10 xl:gap-12 p-4 sm:p-6 lg:p-8 lg:h-full w-full">
           {/* Left profile section: normal flow on mobile, sticky on desktop */}
           <div className="col-span-12 lg:col-span-3 lg:sticky lg:top-8 lg:self-start">
