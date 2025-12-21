@@ -11,6 +11,7 @@ import "../leaflet-styles-import";
 import { BlurFade } from "./ui/blur-fade";
 import ThemeToggle from "./ui/theme-toggle";
 import { SparklesText } from "./ui/sparkles-text";
+import { BentoCard as BentoCardUI } from "./ui/bento-grid";
 
 // CSS for pulsing dot and flying plane
 const mapStyles = `
@@ -378,7 +379,7 @@ const ContributionGrid: React.FC<{
   );
 };
 
-const BentoCard: React.FC = () => {
+const Portfolio: React.FC = () => {
   const [contributions, setContributions] = React.useState<
     { week: number; day: number; level: number }[]
   >([]);
@@ -394,13 +395,6 @@ const BentoCard: React.FC = () => {
     }
     setContributions(contributionsArray);
   }, []);
-
-  const cardClass =
-    "bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 transition-colors duration-300 transform-gpu hover:scale-[1.02]";
-  const boxShadowStyle = {
-    // lighter single shadow to avoid a heavy border-like outline
-    boxShadow: "rgba(0, 0, 0, 0.04) 0px 6px 18px 0px",
-  };
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 p-4 sm:p-6 lg:p-8 overflow-x-hidden transition-colors duration-300">
@@ -455,15 +449,14 @@ const BentoCard: React.FC = () => {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
             <BlurFade delay={0.2} inView className="lg:col-span--2">
-              <div
-                className={`${cardClass} overflow-hidden h-[280px] sm:h-[320px] lg:h-[390px] relative`}
-                style={boxShadowStyle}
+              <BentoCardUI
+                className="overflow-hidden h-[280px] sm:h-[320px] lg:h-[390px] relative"
               >
                 {/* Location label box */}
                 <div
                   className="absolute ml-3 bottom-3 bg-white dark:bg-gray-800 rounded-xl px-4 py-1 flex items-center border border-gray-200 dark:border-gray-700 z-1000 transition-colors duration-300"
                   style={{
-                    ...boxShadowStyle,
+                    boxShadow: "rgba(0, 0, 0, 0.04) 0px 6px 18px 0px",
                     fontWeight: 500,
                     fontSize: "1.1rem",
                     letterSpacing: 0,
@@ -474,7 +467,7 @@ const BentoCard: React.FC = () => {
                 </div>
                 {/* Leaflet map of Budapest, zoom 10, Apple Maps-style customization to follow */}
                 <MapWithCustomZoom />
-              </div>
+              </BentoCardUI>
             </BlurFade>
 
             <div className="">
@@ -483,9 +476,8 @@ const BentoCard: React.FC = () => {
                 inView
                 className="lg:col-start-2 lg:mb-7 mb-5 min-h-[160px] lg:h-[190px]"
               >
-                <div
-                  className={`${cardClass} p-4 flex flex-col gap-4 w-full pt-5 pb-10`}
-                  style={boxShadowStyle}
+                <BentoCardUI
+                  className="p-4 flex flex-col gap-4 w-full pt-5 pb-10"
                 >
                   {/* GitHub top box */}
                   <div className="flex items-center justify-between">
@@ -530,109 +522,82 @@ const BentoCard: React.FC = () => {
                     {/* Responsive contribution grid: adapts number of columns and rows to container width */}
                     <ContributionGrid contributions={contributions} />
                   </div>
-                </div>
+                </BentoCardUI>
               </BlurFade>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
-                <div className="cursor-pointer">
-                  <div
-                    className={`${cardClass} p-4 w-full cursor-pointer`}
-                    style={boxShadowStyle}
-                    onClick={() =>
-                      window.open(
-                        "https://www.linkedin.com/in/atadurdyyevserdar",
-                        "_blank",
-                        "noopener,noreferrer"
-                      )
-                    }
-                  >
-                    <div className="flex flex-col gap-3">
-                      <div className="w-12 h-12 bg-[#016699] rounded-lg flex items-center justify-center">
-                        <svg
-                          className="w-6 h-6 text-white"
-                          fill="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                        </svg>
-                      </div>
-                      <div className="">
-                        <p className="text-xs sm:text-sm text-gray-900 dark:text-white">
-                          Let's connect on
-                        </p>
-                        <p className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white">LinkedIn</p>
-                      </div>
-                      <div>
-                        <a
-                          href="https://www.linkedin.com/in/atadurdyyevserdar"
-                          className="text-xs text-gray-500 dark:text-gray-400 mt-1"
-                        >
-                          linkedin.com
-                        </a>
-                      </div>
-                      {/* <button
-                        onClick={(e) => { e.stopPropagation(); window.open("", "_blank", "noopener,noreferrer"); }}
-                        className="cursor-pointer w-20 mt-2 px-4 py-2 rounded-md bg-[#016699] text-white text-xs font-semibold"
+                <BentoCardUI
+                  className="p-4 w-full cursor-pointer"
+                  onClick={() =>
+                    window.open(
+                      "https://www.linkedin.com/in/atadurdyyevserdar",
+                      "_blank",
+                      "noopener,noreferrer"
+                    )
+                  }
+                >
+                  <div className="flex flex-col gap-3">
+                    <div className="w-12 h-12 bg-[#016699] rounded-lg flex items-center justify-center">
+                      <svg
+                        className="w-6 h-6 text-white"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
                       >
-                        View
-                      </button> */}
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                      </svg>
+                    </div>
+                    <div className="">
+                      <p className="text-xs sm:text-sm text-gray-900 dark:text-white">
+                        Let's connect on
+                      </p>
+                      <p className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white">LinkedIn</p>
+                    </div>
+                    <div>
+                      <a
+                        href="https://www.linkedin.com/in/atadurdyyevserdar"
+                        className="text-xs text-gray-500 dark:text-gray-400 mt-1"
+                      >
+                        linkedin.com
+                      </a>
                     </div>
                   </div>
-                </div>
+                </BentoCardUI>
 
-                <div className="w-full">
-                  <div
-                    className={`${cardClass} p-4 w-full`}
-                    style={boxShadowStyle}
-                  >
-                    <div
-                      className="cursor-pointer flex flex-col gap-3"
-                      onClick={() =>
-                        window.open(
-                          "https://www.instagram.com/atadurdyevserdar/",
-                          "_blank",
-                          "noopener,noreferrer"
-                        )
-                      }
-                    >
-                      <div className="w-12 h-12 bg-linear-to-br from-purple-600 via-pink-500 to-orange-500 rounded-lg flex items-center justify-center">
-                        <svg
-                          className="w-6 h-6 text-white"
-                          fill="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                        </svg>
-                      </div>
-                      <div>
-                        <div>
-                          <p className="text-xs sm:text-sm text-gray-900 dark:text-white">Follow me on</p>
-                          <p className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white">Instagram</p>
-                        </div>
-                      </div>
-                      <div>
-                        <a
-                          href="https://www.instagram.com/atadurdyevserdar/"
-                          className="text-xs text-gray-500 dark:text-gray-400 mt-1"
-                        >
-                          instagram.com
-                        </a>
-                      </div>
-
-                      {/* <button
-                        onClick={() =>
-                          window.open(
-                            "https://www.instagram.com/atadurdyevserdar/",
-                            "_blank",
-                            "noopener,noreferrer"
-                          )
-                        }
-                        className="cursor-pointer w-20 mt-2 px-4 py-2 rounded-md bg-blue-500 text-white text-xs font-semibold"
+                <BentoCardUI
+                  className="p-4 w-full cursor-pointer"
+                  onClick={() =>
+                    window.open(
+                      "https://www.instagram.com/atadurdyevserdar/",
+                      "_blank",
+                      "noopener,noreferrer"
+                    )
+                  }
+                >
+                  <div className="flex flex-col gap-3">
+                    <div className="w-12 h-12 rounded-lg flex items-center justify-center bg-gradient-to-br from-purple-600 via-pink-500 to-orange-500">
+                      <svg
+                        className="w-6 h-6 text-white"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
                       >
-                        Follow
-                      </button> */}
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <div>
+                        <p className="text-xs sm:text-sm text-gray-900 dark:text-white">Follow me on</p>
+                        <p className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white">Instagram</p>
+                      </div>
+                    </div>
+                    <div>
+                      <a
+                        href="https://www.instagram.com/atadurdyevserdar/"
+                        className="text-xs text-gray-500 dark:text-gray-400 mt-1"
+                      >
+                        instagram.com
+                      </a>
                     </div>
                   </div>
-                </div>
+                </BentoCardUI>
               </div>
             </div>
 
@@ -642,7 +607,7 @@ const BentoCard: React.FC = () => {
               </h2>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 {/* AI Summarizer Card */}
-                <div className={`${cardClass} p-6`} style={boxShadowStyle}>
+                <BentoCardUI className="p-6">
                   <div>
                     <p className="font-semibold text-gray-900 dark:text-white mb-2">
                       AI Summarizer
@@ -661,10 +626,10 @@ const BentoCard: React.FC = () => {
                       </a>
                     </div>
                   </div>
-                </div>
+                </BentoCardUI>
 
                 {/* Corners Game Card */}
-                <div className={`${cardClass} p-6`} style={boxShadowStyle}>
+                <BentoCardUI className="p-6">
                   <div>
                     <p className="font-semibold text-gray-900 dark:text-white mb-2">
                       Corners Game
@@ -683,7 +648,7 @@ const BentoCard: React.FC = () => {
                       </a>
                     </div>
                   </div>
-                </div>
+                </BentoCardUI>
 
                 {/* Discord Bento Widget */}
                 {/* Paste code here */}
@@ -703,4 +668,4 @@ const BentoCard: React.FC = () => {
   );
 };
 
-export default BentoCard;
+export default Portfolio;
