@@ -397,7 +397,7 @@ const Portfolio: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen lg:h-screen lg:overflow-hidden bg-white dark:bg-gray-900 transition-colors duration-300 flex flex-col lg:flex-col">
+    <div className="min-h-screen lg:h-screen lg:overflow-hidden bg-white dark:bg-gray-900 transition-colors duration-300 flex flex-col">
       {/* Theme toggle button - fixed in top right */}
       <div className="fixed top-4 right-4 z-50">
         <ThemeToggle />
@@ -405,8 +405,8 @@ const Portfolio: React.FC = () => {
       
       <div className="flex-1 overflow-hidden flex flex-col">
         <div className="max-w-7xl mx-auto grid grid-cols-12 gap-6 sm:gap-8 lg:gap-10 xl:gap-12 p-4 sm:p-6 lg:p-8 lg:h-full w-full">
-        {/* Left profile section: normal flow on mobile, sticky on desktop */}
-        <div className="col-span-12 lg:col-span-3 lg:sticky lg:top-8 lg:self-start">
+          {/* Left profile section: normal flow on mobile, sticky on desktop */}
+          <div className="col-span-12 lg:col-span-3 lg:sticky lg:top-8 lg:self-start">
           <div className="pt-2 sm:pt-4 lg:pt-0 lg:pl-0 lg:-ml-4">
             <img
               src="https://storage.googleapis.com/creatorspace-public/users%2Fcmj9czwp000z0tr01oggxkibz%2Fd3zmnQOL8CLnOXIx-CleanShot%25202025-12-17%2520at%252003.35.54%25402x.png"
@@ -656,6 +656,7 @@ const Portfolio: React.FC = () => {
               </div>
             </BlurFade>
           </div>
+        </div>
         </div>
       </div>
 
