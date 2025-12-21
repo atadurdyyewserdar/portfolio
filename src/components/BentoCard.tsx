@@ -9,6 +9,8 @@ import {
 import L from "leaflet";
 import "../leaflet-styles-import";
 import { BlurFade } from "./ui/blur-fade";
+import ThemeToggle from "./ui/theme-toggle";
+import { SparklesText } from "./ui/sparkles-text";
 
 // CSS for pulsing dot and flying plane
 const mapStyles = `
@@ -295,22 +297,83 @@ const MapWithCustomZoom: React.FC = () => {
         <AnimatedPlaneMarker />
       </MapContainer>
       {/* Custom zoom controls */}
-      <div className="absolute bottom-3 right-3 bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden z-1000">
+      <div className="absolute bottom-3 right-3 bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 overflow-hidden z-1000 transition-colors duration-300">
         <button
           onClick={handleZoomIn}
-          className="w-9 h-9 cursor-pointer flex items-center justify-center hover:bg-gray-100 text-xl font-semibold text-gray-700 transition border-b border-gray-200"
+          className="w-9 h-9 cursor-pointer flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-700 text-xl font-semibold text-gray-700 dark:text-gray-200 transition border-b border-gray-200 dark:border-gray-700"
           aria-label="Zoom in"
         >
           +
         </button>
         <button
           onClick={handleZoomOut}
-          className="w-9 h-9 flex cursor-pointer items-center justify-center hover:bg-gray-100 text-xl font-semibold text-gray-700 transition"
+          className="w-9 h-9 flex cursor-pointer items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-700 text-xl font-semibold text-gray-700 dark:text-gray-200 transition"
           aria-label="Zoom out"
         >
           –
         </button>
       </div>
+    </div>
+  );
+};
+
+const ContributionGrid: React.FC<{
+  contributions: { week: number; day: number; level: number }[]
+}> = ({ contributions }) => {
+  const ref = React.useRef<HTMLDivElement | null>(null);
+  const [cols, setCols] = React.useState(20);
+  const [rows, setRows] = React.useState(5);
+  const CELL_SIZE = 12; // px — fixed size to avoid tiny/circular cells
+
+  React.useEffect(() => {
+    if (!ref.current) return;
+    const gap = 4; // px (Tailwind gap-1)
+
+    const ro = new ResizeObserver((entries) => {
+      const width = entries[0].contentRect.width;
+
+      // Keep a fixed cell size and only adapt the number of columns
+      const calculatedCols = Math.max(4, Math.floor((width + gap) / (CELL_SIZE + gap)));
+
+      // For smaller widths, reduce rows slightly to avoid crowding
+      let calculatedRows = 5;
+      if (width < 420) calculatedRows = 4;
+
+      setCols(calculatedCols);
+      setRows(calculatedRows);
+    });
+
+    ro.observe(ref.current);
+    return () => ro.disconnect();
+  }, []);
+
+  const displayCount = cols * rows;
+  const visible = contributions.slice(0, displayCount);
+
+  const colorFor = (level: number) =>
+    level === 0
+      ? "bg-gray-200"
+      : level === 1
+      ? "bg-emerald-200"
+      : level === 2
+      ? "bg-emerald-400"
+      : level === 3
+      ? "bg-emerald-500"
+      : "bg-emerald-600";
+
+  return (
+    <div
+      ref={ref}
+      className="grid gap-1 mt-3"
+      style={{ gridTemplateColumns: `repeat(${cols}, ${CELL_SIZE}px)` }}
+    >
+      {visible.map((contrib, idx) => (
+        <div
+          key={idx}
+          className={`rounded-sm ${colorFor(contrib.level)}`}
+          style={{ width: CELL_SIZE, height: CELL_SIZE }}
+        />
+      ))}
     </div>
   );
 };
@@ -333,14 +396,19 @@ const BentoCard: React.FC = () => {
   }, []);
 
   const cardClass =
-    "bg-white rounded-2xl border border-gray-200 transition-transform duration-300 transform-gpu hover:scale-[1.02]";
+    "bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 transition-colors duration-300 transform-gpu hover:scale-[1.02]";
   const boxShadowStyle = {
     // lighter single shadow to avoid a heavy border-like outline
     boxShadow: "rgba(0, 0, 0, 0.04) 0px 6px 18px 0px",
   };
 
   return (
-    <div className="min-h-screen bg-white p-4 sm:p-6 lg:p-8 overflow-x-hidden">
+    <div className="min-h-screen bg-white dark:bg-gray-900 p-4 sm:p-6 lg:p-8 overflow-x-hidden transition-colors duration-300">
+      {/* Theme toggle button - fixed in top right */}
+      <div className="fixed top-4 right-4 z-50">
+        <ThemeToggle />
+      </div>
+      
       <div className="max-w-7xl mx-auto grid grid-cols-12 gap-6 sm:gap-8 lg:gap-10 xl:gap-12">
         <div className="col-span-12 lg:col-span-3 lg:mt-0 static lg:sticky lg:top-8 lg:self-start">
           <div className="pt-2 sm:pt-4 lg:pt-0 lg:pl-0 lg:-ml-4">
@@ -351,13 +419,13 @@ const BentoCard: React.FC = () => {
               style={{ boxShadow: "0 4px 24px 0 rgba(0,0,0,0.10)" }}
             />
             <div className="text-center lg:text-left">
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 tracking-tight">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white tracking-tight">
                 Serdar
               </h1>
-              <p className="text-gray-500 text-base sm:text-lg lg:text-2xl mt-2">
+              <p className="text-gray-500 dark:text-gray-400 text-base sm:text-lg lg:text-2xl mt-2">
                 Software Engineer
               </p>
-              <p className="text-gray-600 mt-4 max-w-md text-xs sm:text-sm lg:text-base mx-auto lg:mx-0">
+              <p className="text-gray-600 dark:text-gray-300 mt-4 max-w-md text-xs sm:text-sm lg:text-base mx-auto lg:mx-0">
                 Hey there! I'm an experienced Software Engineer with over 3
                 years of professional experience in Java, Spring Boot, and REST
                 APIs. I love designing scalable backend and
@@ -366,6 +434,8 @@ const BentoCard: React.FC = () => {
                 development teams is my jam.
               </p>
             </div>
+
+
           </div>
         </div>
 
@@ -373,11 +443,11 @@ const BentoCard: React.FC = () => {
           className="col-span-12 lg:col-span-9 space-y-5 lg:pl-16 xl:pl-20 2xl:pl-28 lg:overflow-y-auto lg:max-h-[calc(100vh-4rem)] hide-scrollbar pr-2 sm:pr-4"
         >
           <div
-            className="text-left w-full px-1 sticky top-0 z-20 bg-white pb-2 sm:pb-3 pt-2 sm:pt-4"
+            className="text-left w-full px-1 sticky top-0 z-20 bg-white dark:bg-gray-900 pb-2 sm:pb-3 pt-2 sm:pt-4 transition-colors duration-300"
             style={{ marginLeft: -2 }}
           >
             <BlurFade delay={0.1} inView>
-              <h2 className="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white tracking-tight">
                 Welcome 👋
               </h2>
             </BlurFade>
@@ -391,7 +461,7 @@ const BentoCard: React.FC = () => {
               >
                 {/* Location label box */}
                 <div
-                  className="absolute ml-3 bottom-3 bg-white rounded-xl px-4 py-1 flex items-center border border-gray-200 z-1000"
+                  className="absolute ml-3 bottom-3 bg-white dark:bg-gray-800 rounded-xl px-4 py-1 flex items-center border border-gray-200 dark:border-gray-700 z-1000 transition-colors duration-300"
                   style={{
                     ...boxShadowStyle,
                     fontWeight: 500,
@@ -400,7 +470,7 @@ const BentoCard: React.FC = () => {
                   }}
                 >
                   <span className="mr-2 text-lg">📍</span>
-                  <span className="text-gray-900">Budapest, Hungary</span>
+                  <span className="text-gray-900 dark:text-white">Budapest, Hungary</span>
                 </div>
                 {/* Leaflet map of Budapest, zoom 10, Apple Maps-style customization to follow */}
                 <MapWithCustomZoom />
@@ -420,7 +490,7 @@ const BentoCard: React.FC = () => {
                   {/* GitHub top box */}
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-xl bg-black flex items-center justify-center">
+                      <div className="w-12 h-12 rounded-xl bg-black dark:bg-gray-700 flex items-center justify-center transition-colors duration-300">
                         <svg
                           className="w-6 h-6 text-white"
                           fill="currentColor"
@@ -434,10 +504,10 @@ const BentoCard: React.FC = () => {
                         </svg>
                       </div>
                       <div>
-                        <span className="text-sm font-medium text-gray-900">
+                        <span className="text-sm font-medium text-gray-900 dark:text-white">
                           Serdar
                         </span>
-                        <p className="text-xs text-gray-500">
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
                           GitHub · atadurdyyewserdar
                         </p>
                       </div>
@@ -450,50 +520,15 @@ const BentoCard: React.FC = () => {
                           "noopener,noreferrer"
                         )
                       }
-                      className="cursor-pointer px-4 py-2 border border-zinc-300 rounded-sm bg-gray-50 text-xs font-semibold text-gray-900"
+                      className="cursor-pointer px-4 py-2 border border-zinc-300 dark:border-gray-600 rounded-sm bg-gray-50 dark:bg-gray-700 text-xs font-semibold text-gray-900 dark:text-white transition-colors duration-300"
                     >
                       Follow
                     </button>
                   </div>
 
                   <div className="flex-1 overflow-hidden">
-                    <div className="hidden sm:grid lg:grid-cols-25 grid-rows-2 gap-1">
-                      {contributions.slice(0, 125).map((contrib, idx) => (
-                        <div
-                          key={idx}
-                          className={`w-2 h-2 sm:w-3 sm:h-3 rounded ${
-                            contrib.level === 0
-                              ? "bg-gray-200"
-                              : contrib.level === 1
-                              ? "bg-emerald-200"
-                              : contrib.level === 2
-                              ? "bg-emerald-400"
-                              : contrib.level === 3
-                              ? "bg-emerald-500"
-                              : "bg-emerald-600"
-                          }`}
-                        />
-                      ))}
-                    </div>
-                    {/* Simplified mobile view */}
-                    <div className="sm:hidden grid grid-cols-16 grid-rows-7 gap-1 mt-3">
-                      {contributions.slice(0, 84).map((contrib, idx) => (
-                        <div
-                          key={idx}
-                          className={`w-3 h-3 rounded-sm ${
-                            contrib.level === 0
-                              ? "bg-gray-200"
-                              : contrib.level === 1
-                              ? "bg-emerald-200"
-                              : contrib.level === 2
-                              ? "bg-emerald-400"
-                              : contrib.level === 3
-                              ? "bg-emerald-500"
-                              : "bg-emerald-600"
-                          }`}
-                        />
-                      ))}
-                    </div>
+                    {/* Responsive contribution grid: adapts number of columns and rows to container width */}
+                    <ContributionGrid contributions={contributions} />
                   </div>
                 </div>
               </BlurFade>
@@ -521,15 +556,15 @@ const BentoCard: React.FC = () => {
                         </svg>
                       </div>
                       <div className="">
-                        <p className="text-xs sm:text-sm text-gray-900">
+                        <p className="text-xs sm:text-sm text-gray-900 dark:text-white">
                           Let's connect on
                         </p>
-                        <p className="text-sm sm:text-base font-semibold text-gray-900">LinkedIn</p>
+                        <p className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white">LinkedIn</p>
                       </div>
                       <div>
                         <a
                           href="https://www.linkedin.com/in/atadurdyyevserdar"
-                          className="text-xs text-gray-500 mt-1"
+                          className="text-xs text-gray-500 dark:text-gray-400 mt-1"
                         >
                           linkedin.com
                         </a>
@@ -570,14 +605,14 @@ const BentoCard: React.FC = () => {
                       </div>
                       <div>
                         <div>
-                          <p className="text-xs sm:text-sm text-gray-900">Follow me on</p>
-                          <p className="text-sm sm:text-base font-semibold text-gray-900">Instagram</p>
+                          <p className="text-xs sm:text-sm text-gray-900 dark:text-white">Follow me on</p>
+                          <p className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white">Instagram</p>
                         </div>
                       </div>
                       <div>
                         <a
                           href="https://www.instagram.com/atadurdyevserdar/"
-                          className="text-xs text-gray-500 mt-1"
+                          className="text-xs text-gray-500 dark:text-gray-400 mt-1"
                         >
                           instagram.com
                         </a>
@@ -602,17 +637,17 @@ const BentoCard: React.FC = () => {
             </div>
 
             <BlurFade delay={0.6} inView className="lg:col-span-2">
-              <h2 className="text-2xl font-bold text-gray-900 tracking-tight mb-7 mt-3">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white tracking-tight mb-7 mt-3">
                 Projects
               </h2>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 {/* AI Summarizer Card */}
                 <div className={`${cardClass} p-6`} style={boxShadowStyle}>
                   <div>
-                    <p className="font-semibold text-gray-900 mb-2">
+                    <p className="font-semibold text-gray-900 dark:text-white mb-2">
                       AI Summarizer
                     </p>
-                    <p className="text-xs text-gray-500">
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
                       Summarization tool with AI-powered features.
                     </p>
                     <div className="mt-4 flex items-start gap-2">
@@ -631,10 +666,10 @@ const BentoCard: React.FC = () => {
                 {/* Corners Game Card */}
                 <div className={`${cardClass} p-6`} style={boxShadowStyle}>
                   <div>
-                    <p className="font-semibold text-gray-900 mb-2">
+                    <p className="font-semibold text-gray-900 dark:text-white mb-2">
                       Corners Game
                     </p>
-                    <p className="text-xs text-gray-500">
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
                       Interactive game built with modern web technologies.
                     </p>
                     <div className="mt-4 flex items-start gap-2">
@@ -657,6 +692,13 @@ const BentoCard: React.FC = () => {
           </div>
         </div>
       </div>
+
+      <div className="mt-8 border-t border-gray-100 dark:border-gray-800 pt-4 text-center">
+        <SparklesText className="text-sm text-gray-500 dark:text-gray-400 font-medium">
+          ✨ Powered by Magic UI
+        </SparklesText>
+      </div>
+
     </div>
   );
 };
