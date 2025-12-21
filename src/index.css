@@ -2,36 +2,58 @@
 
 @variant dark (.dark &);
 
-/* Custom small helpers for the starter template */
+/* ===========================================
+   SCROLLING SETUP - Clean implementation
+   =========================================== */
 
-/* Utility to hide scrollbars while preserving scrolling behavior */
+/* Mobile & Tablet (< 1024px): Normal page scroll */
+html, body, #root {
+  height: auto;
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Desktop (>= 1024px): Fixed viewport with internal scroll */
+@media (min-width: 1024px) {
+  html, body, #root {
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  body {
+    touch-action: auto;
+  }
+}
+
+/* Hide scrollbar utility */
 .hide-scrollbar {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 .hide-scrollbar::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+  display: none;
 }
 
-html, body, #root {
-  height: 100%;
+/* ===========================================
+   LEAFLET MAP - Disable all touch on mobile
+   =========================================== */
+@media (max-width: 1023px) {
+  .leaflet-container {
+    pointer-events: none;
+  }
 }
+
+/* ===========================================
+   OTHER STYLES
+   =========================================== */
 
 /* Keep minimal reset for code examples */
 code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono",
     "Segoe UI Mono", "Noto Sans Mono", monospace;
-}
-
-/* Ensure Leaflet map allows vertical page scrolling on touch devices */
-.leaflet-container {
-  touch-action: pan-y;
-  -ms-touch-action: pan-y;
-  /* Allow smooth momentum scrolling and proper scroll chaining */
-  overscroll-behavior-y: auto;
-}
-
-/* Ensure body uses native momentum scrolling on iOS */
-body {
-  -webkit-overflow-scrolling: touch;
 }

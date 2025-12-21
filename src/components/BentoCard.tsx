@@ -277,12 +277,8 @@ const MapWithCustomZoom: React.FC = () => {
           width: "100%",
           zIndex: 1,
           borderRadius: "inherit",
-          // Allow page scrolling on mobile (prevent map from capturing touch swipes)
-          touchAction: isMobile ? 'auto' : 'none',
         }}
         dragging={!isMobile}
-        touchZoom={!isMobile}
-        doubleClickZoom={!isMobile}
         zoomControl={false}
         attributionControl={false}
       >
@@ -401,14 +397,15 @@ const Portfolio: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 p-4 sm:p-6 lg:p-8 overflow-x-hidden transition-colors duration-300">
+    <div className="min-h-screen lg:h-screen lg:overflow-hidden bg-white dark:bg-gray-900 p-4 sm:p-6 lg:p-8 transition-colors duration-300">
       {/* Theme toggle button - fixed in top right */}
       <div className="fixed top-4 right-4 z-50">
         <ThemeToggle />
       </div>
       
-      <div className="max-w-7xl mx-auto grid grid-cols-12 gap-6 sm:gap-8 lg:gap-10 xl:gap-12">
-        <div className="col-span-12 lg:col-span-3 lg:mt-0 static lg:sticky lg:top-8 lg:self-start">
+      <div className="max-w-7xl mx-auto grid grid-cols-12 gap-6 sm:gap-8 lg:gap-10 xl:gap-12 lg:h-full">
+        {/* Left profile section: normal flow on mobile, sticky on desktop */}
+        <div className="col-span-12 lg:col-span-3 lg:sticky lg:top-8 lg:self-start">
           <div className="pt-2 sm:pt-4 lg:pt-0 lg:pl-0 lg:-ml-4">
             <img
               src="https://storage.googleapis.com/creatorspace-public/users%2Fcmj9czwp000z0tr01oggxkibz%2Fd3zmnQOL8CLnOXIx-CleanShot%25202025-12-17%2520at%252003.35.54%25402x.png"
@@ -438,7 +435,7 @@ const Portfolio: React.FC = () => {
         </div>
 
         <div
-          className="col-span-12 lg:col-span-9 space-y-5 lg:pl-16 xl:pl-20 2xl:pl-28 lg:overflow-y-auto lg:max-h-[calc(100vh-4rem)] hide-scrollbar pr-2 sm:pr-4"
+          className="col-span-12 lg:col-span-9 space-y-5 lg:pl-16 xl:pl-20 2xl:pl-28 lg:overflow-y-auto lg:max-h-[calc(100vh-4rem)] lg:pr-4 hide-scrollbar"
         >
           <div
             className="text-left w-full px-1 sticky top-0 z-20 bg-white dark:bg-gray-900 pb-2 sm:pb-3 pt-2 sm:pt-4 transition-colors duration-300"
