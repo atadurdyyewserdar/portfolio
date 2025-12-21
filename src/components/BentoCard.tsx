@@ -695,7 +695,7 @@ const BentoCard: React.FC = () => {
 
       <div className="mt-8 border-t border-gray-100 dark:border-gray-800 pt-4 text-center">
         <SparklesText className="text-sm text-gray-500 dark:text-gray-400 font-medium">
-          ✨ Powered by Magic UI
+          ✨ Powered by Magic UI & Bento
         </SparklesText>
       </div>
 
