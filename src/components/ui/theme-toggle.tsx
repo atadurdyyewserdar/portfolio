@@ -54,7 +54,6 @@ const ThemeToggle: React.FC = () => {
             strokeWidth={2}
             stroke="currentColor"
             className="w-6 h-6 text-blue-300"
-            style={{ transform: 'rotate(45deg)' }}
             initial={{ opacity: 0, rotate: -180 }}
             animate={{ opacity: 1, rotate: 0 }}
             exit={{ opacity: 0, rotate: 180 }}
