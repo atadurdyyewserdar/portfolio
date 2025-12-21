@@ -317,6 +317,67 @@ const MapWithCustomZoom: React.FC = () => {
   );
 };
 
+const ContributionGrid: React.FC<{
+  contributions: { week: number; day: number; level: number }[]
+}> = ({ contributions }) => {
+  const ref = React.useRef<HTMLDivElement | null>(null);
+  const [cols, setCols] = React.useState(20);
+  const [rows, setRows] = React.useState(5);
+  const CELL_SIZE = 12; // px — fixed size to avoid tiny/circular cells
+
+  React.useEffect(() => {
+    if (!ref.current) return;
+    const gap = 4; // px (Tailwind gap-1)
+
+    const ro = new ResizeObserver((entries) => {
+      const width = entries[0].contentRect.width;
+
+      // Keep a fixed cell size and only adapt the number of columns
+      const calculatedCols = Math.max(4, Math.floor((width + gap) / (CELL_SIZE + gap)));
+
+      // For smaller widths, reduce rows slightly to avoid crowding
+      let calculatedRows = 5;
+      if (width < 420) calculatedRows = 4;
+
+      setCols(calculatedCols);
+      setRows(calculatedRows);
+    });
+
+    ro.observe(ref.current);
+    return () => ro.disconnect();
+  }, []);
+
+  const displayCount = cols * rows;
+  const visible = contributions.slice(0, displayCount);
+
+  const colorFor = (level: number) =>
+    level === 0
+      ? "bg-gray-200"
+      : level === 1
+      ? "bg-emerald-200"
+      : level === 2
+      ? "bg-emerald-400"
+      : level === 3
+      ? "bg-emerald-500"
+      : "bg-emerald-600";
+
+  return (
+    <div
+      ref={ref}
+      className="grid gap-1 mt-3"
+      style={{ gridTemplateColumns: `repeat(${cols}, ${CELL_SIZE}px)` }}
+    >
+      {visible.map((contrib, idx) => (
+        <div
+          key={idx}
+          className={`rounded-sm ${colorFor(contrib.level)}`}
+          style={{ width: CELL_SIZE, height: CELL_SIZE }}
+        />
+      ))}
+    </div>
+  );
+};
+
 const BentoCard: React.FC = () => {
   const [contributions, setContributions] = React.useState<
     { week: number; day: number; level: number }[]
@@ -373,12 +434,8 @@ const BentoCard: React.FC = () => {
                 development teams is my jam.
               </p>
             </div>
-            {/* Powered by Magic UI - with sparkles */}
-            <div className="mt-8 text-center lg:text-left">
-              <SparklesText className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-medium">
-                ✨ Powered by Magic UI
-              </SparklesText>
-            </div>
+
+
           </div>
         </div>
 
@@ -470,43 +527,8 @@ const BentoCard: React.FC = () => {
                   </div>
 
                   <div className="flex-1 overflow-hidden">
-                    <div className="hidden sm:grid lg:grid-cols-25 grid-rows-2 gap-1">
-                      {contributions.slice(0, 125).map((contrib, idx) => (
-                        <div
-                          key={idx}
-                          className={`w-2 h-2 sm:w-3 sm:h-3 rounded ${
-                            contrib.level === 0
-                              ? "bg-gray-200"
-                              : contrib.level === 1
-                              ? "bg-emerald-200"
-                              : contrib.level === 2
-                              ? "bg-emerald-400"
-                              : contrib.level === 3
-                              ? "bg-emerald-500"
-                              : "bg-emerald-600"
-                          }`}
-                        />
-                      ))}
-                    </div>
-                    {/* Simplified mobile view */}
-                    <div className="sm:hidden grid grid-cols-16 grid-rows-7 gap-1 mt-3">
-                      {contributions.slice(0, 84).map((contrib, idx) => (
-                        <div
-                          key={idx}
-                          className={`w-3 h-3 rounded-sm ${
-                            contrib.level === 0
-                              ? "bg-gray-200"
-                              : contrib.level === 1
-                              ? "bg-emerald-200"
-                              : contrib.level === 2
-                              ? "bg-emerald-400"
-                              : contrib.level === 3
-                              ? "bg-emerald-500"
-                              : "bg-emerald-600"
-                          }`}
-                        />
-                      ))}
-                    </div>
+                    {/* Responsive contribution grid: adapts number of columns and rows to container width */}
+                    <ContributionGrid contributions={contributions} />
                   </div>
                 </div>
               </BlurFade>
@@ -670,6 +692,13 @@ const BentoCard: React.FC = () => {
           </div>
         </div>
       </div>
+
+      <div className="mt-8 border-t border-gray-100 dark:border-gray-800 pt-4 text-center">
+        <SparklesText className="text-sm text-gray-500 dark:text-gray-400 font-medium">
+          ✨ Powered by Magic UI
+        </SparklesText>
+      </div>
+
     </div>
   );
 };
