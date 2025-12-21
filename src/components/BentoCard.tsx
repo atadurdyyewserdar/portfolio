@@ -10,6 +10,7 @@ import L from "leaflet";
 import "../leaflet-styles-import";
 import { BlurFade } from "./ui/blur-fade";
 import ThemeToggle from "./ui/theme-toggle";
+import { SparklesText } from "./ui/sparkles-text";
 
 // CSS for pulsing dot and flying plane
 const mapStyles = `
@@ -371,6 +372,12 @@ const BentoCard: React.FC = () => {
                 cloud services. Working in Agile/Scrum environments and leading
                 development teams is my jam.
               </p>
+            </div>
+            {/* Powered by Magic UI - with sparkles */}
+            <div className="mt-8 text-center lg:text-left">
+              <SparklesText className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-medium">
+                ✨ Powered by Magic UI
+              </SparklesText>
             </div>
           </div>
         </div>

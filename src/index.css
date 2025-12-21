@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@variant dark (.dark &);
+
 /* Custom small helpers for the starter template */
 
 /* Utility to hide scrollbars while preserving scrolling behavior */
