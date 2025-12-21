@@ -27,4 +27,11 @@ code {
 .leaflet-container {
   touch-action: pan-y;
   -ms-touch-action: pan-y;
+  /* Allow smooth momentum scrolling and proper scroll chaining */
+  overscroll-behavior-y: auto;
+}
+
+/* Ensure body uses native momentum scrolling on iOS */
+body {
+  -webkit-overflow-scrolling: touch;
 }

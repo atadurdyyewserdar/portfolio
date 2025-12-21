@@ -281,6 +281,8 @@ const MapWithCustomZoom: React.FC = () => {
           touchAction: isMobile ? 'auto' : 'none',
         }}
         dragging={!isMobile}
+        touchZoom={!isMobile}
+        doubleClickZoom={!isMobile}
         zoomControl={false}
         attributionControl={false}
       >
